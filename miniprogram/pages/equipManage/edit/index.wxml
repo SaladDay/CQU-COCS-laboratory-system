@@ -1,0 +1,34 @@
+<view class="form-main">
+    <view class="form-main-in">
+        <van-cell-group>
+            <van-field value="{{ name }}" required clearable label="用户名称" placeholder="请输入用户名字" input-align="right" bind:change="onNameChange" />
+            <!-- <van-cell title="学院" value="{{ department }}" />
+            <van-cell title="工号" value="{{ userId }}" /> -->
+            <van-field value="{{ department }}" required clearable label="学院" placeholder="请输入学院" input-align="right" bind:change="onDepartmentChange" />
+            <van-field value="{{ userId }}" required clearable label="工号" placeholder="请输入工号" input-align="right" bind:change="onUserIdChange" />
+            <van-field value="{{ tel }}" clearable label="手机号" placeholder="请输入手机号" type="number" input-align="right" bind:change="onTelChange" />
+            <van-field value="{{ point }}" clearable label="值班系数" placeholder="请输入值班系数" type="number" input-align="right" bind:change="onPointChange" />
+            <van-cell title="人员类型" value="{{ userTypeList[userType] }}" is-link data-id="userType" bind:click="onPickerDisplay" />
+            <van-popup show="{{ userTypeShow }}" position="bottom">
+                <van-picker columns="{{ userTypeList }}" show-toolbar title="人员类型" data-id="room" bind:cancel="onPickerCancel" bind:confirm="onPickerConfirm" />
+            </van-popup>
+
+            <block wx:if="{{userType==0}}">
+                <van-cell title="是否为管理员">
+                    <van-switch checked="{{ manager }}" size="24px" bind:change="onManagerChange" />
+                </van-cell>
+                <van-cell title="是否维护">
+                    <van-switch checked="{{ maintain }}" size="24px" bind:change="onMaintainChange" />
+                </van-cell>
+                <van-cell title="是否排班" value="{{ start }}">
+                    <van-switch checked="{{ scheduler }}" size="24px" bind:change="onSchedulerChange" />
+                </van-cell>
+            </block>
+        </van-cell-group>
+    </view>
+</view>
+<view class="form-submit">
+    <view class="form-submit-in">
+        <van-button type="primary" block color="#6e4175" bind:click="onSubmit">提交</van-button>
+    </view>
+</view>

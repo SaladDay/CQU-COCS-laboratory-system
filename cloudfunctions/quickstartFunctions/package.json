@@ -1,0 +1,24 @@
+{
+  "name": "quickstartFunctions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.10",
+    "crypto-js": "^4.1.1",
+    "moment": "^2.29.3",
+    "qrcode": "^1.4.2",
+    "qs": "^6.11.0",
+    "wx-server-sdk": "^2.6.2",
+    "xmcommon": "^0.9.21"
+  },
+  "devDependencies": {
+    "@babel/helper-compilation-targets": "^7.19.3"
+  }
+}

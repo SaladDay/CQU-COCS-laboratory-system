@@ -1,0 +1,39 @@
+page{
+    background-color: white;
+
+}
+.warring_top{
+    width: 100%;
+    padding-right: 15rpx;
+    padding-left: 15rpx;
+    padding-top: 50rpx;
+    padding-bottom: 30rpx;
+    background-color: #fff;
+  }
+  .header-box {
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+  }
+  .warring_text{
+    margin: 15px auto;
+    text-align: center;
+  }
+  .warringico{
+    width: 120rpx;
+    height: 120rpx;
+    margin:0px auto;
+    display: block;
+  }
+  .goToSendText{
+    text-align: center;
+    font-size: 25rpx;
+    color: #6e4175;
+    font-weight: bold;
+  }
+  .warring_btn{
+    width: 90%;
+    background: #6e4175;
+    color: #fff;
+    margin-top: 50rpx;
+  }

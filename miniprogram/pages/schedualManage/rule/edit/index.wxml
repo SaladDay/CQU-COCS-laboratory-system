@@ -1,0 +1,27 @@
+<view class="form-main">
+  <view class="form-main-in">
+    <van-cell-group>
+      <van-cell title="星期" value="{{ weekList[weekIndex].text }}"/>
+     
+      <van-cell title="值班人员1" value="{{ dutyerList[dutyerIndex].text }}" is-link  bind:click="onDutyerDisplay"/>
+      <van-popup show="{{ dutyerShow }}" bind:close="onDutyerClose" position="bottom">
+        <van-picker  columns="{{ dutyerList }}" show-toolbar title="值班人员1" bind:cancel="onDutyerCancel" bind:confirm="onDutyerConfirm" />
+      </van-popup>
+     
+      <van-cell title="值班人员2" value="{{ managerList[managerIndex].text }}" is-link  bind:click="onManagerDisplay"/>
+      <van-popup show="{{ managerShow }}" bind:close="onClose" position="bottom">
+        <van-picker  columns="{{ managerList }}" show-toolbar title="值班人员2" bind:cancel="onManagerCancel" bind:confirm="onManagerConfirm" />
+      </van-popup>
+
+      <van-cell title="是否坐班" value="{{ start }}" >
+        <van-switch checked="{{ isScheduler }}" size="24px" bind:change="onIsSchedulerChange"/>
+      </van-cell>
+
+    </van-cell-group>
+  </view>
+</view>
+<view class="form-submit">
+  <view class="form-submit-in">
+    <van-button type="primary" block color="#6e4175" bind:click="onSubmit">提交</van-button>
+  </view>
+</view>

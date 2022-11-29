@@ -1,0 +1,25 @@
+<view class="form-main">
+  <view class="form-main-in">
+    <van-cell-group>
+      <!-- <van-field value="{{ name }}" required clearable label="教室名称" placeholder="请输入教室名字" input-align="right" bind:change="onNameChange"/>
+      <van-field value="{{ roomCode }}" required clearable label="教室编码" placeholder="请输入教室编码" input-align="right" bind:change="onRoomCodeChange"/> -->
+      <van-cell title="设备类型" value="{{ equipTypeList[equipTypeIndex] }}" is-link  data-id="equipType"  bind:click="onDisplay"/>
+      <van-popup show="{{ show }}"  data-id="equipType" bind:close="onClose" position="bottom">
+        <van-picker columns="{{ equipTypeList }}" show-toolbar title="设备类型" data-id="equipType"  bind:cancel="onClose" bind:confirm="onConfirm" />
+      </van-popup>
+
+      <van-cell title="设备房间" value="{{ roomList[roomIndex] }}" is-link data-id="room" bind:click="onDisplay"/>
+      <van-popup show="{{ roomShow }}" data-id="room" bind:close="onClose" position="bottom">
+        <van-picker columns="{{ roomList }}" show-toolbar title="设备房间" data-id="room" bind:cancel="onClose" bind:confirm="onConfirm" />
+      </van-popup>
+
+      <van-field value="{{ amount }}" required clearable label="数量" placeholder="请输入数量" input-align="right" bind:change="onAmountChange"/>
+
+    </van-cell-group>
+  </view>
+</view>
+<view class="form-submit">
+  <view class="form-submit-in">
+    <van-button type="primary" block color="#6e4175" bind:click="onSubmit">提交</van-button>
+  </view>
+</view>

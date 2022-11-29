@@ -1,0 +1,55 @@
+page{
+    background-color: white;
+
+}
+.warring_top{
+
+    padding-right: 15rpx;
+    padding-left: 15rpx;
+    padding-top: 50rpx;
+    padding-bottom: 30rpx;
+    background-color: #fff;
+  }
+  .header-box {
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+  }
+  .warring_text{
+    margin: 15px auto;
+    text-align: center;
+  }
+  .warringico{
+    width: 120rpx;
+    height: 120rpx;
+    margin:0px auto;
+    display: block;
+  }
+  .goToSendText{
+    text-align: center;
+    font-size: 25rpx;
+    color: #6e4175;
+    font-weight: bold;
+  }
+  .warring_btn{
+    width: 90%;
+    background: #6e4175;
+    color: #fff;
+    margin-top: 50rpx;
+  }
+  .box-content-state{
+      margin-top: 80rpx;
+      margin-left: 75rpx;
+      margin-right: 115rpx;
+      background-color: #8d6094;
+      height: 84rpx;
+      line-height: 84rpx;
+      color: white;
+      font-size: 36rpx;
+  }
+  .undone{
+      background-color: #da6666;
+  }
+  .undone:active{
+        background-color: #daafaf;
+  }

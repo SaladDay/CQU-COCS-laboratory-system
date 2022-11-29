@@ -1,0 +1,30 @@
+<view class="form-main">
+    
+        <view class="form-main-in">
+            <view class="Certification">
+                <view class="Certification-logo">
+                    <image style="width:500rpx; height:350rpx;" src="../images/logo.png"></image>
+                </view>
+            </view>
+            <van-cell-group>
+                
+                <van-cell
+                    title="首次需登录重庆大学网上服务大厅验证身份！"
+                />
+                <van-field model:value="{{ username }}" bind:blur="requestIsCaptchaImg" input-align="right" required clearable label="用户名" placeholder="请输入统一认证号" />
+                <van-field model:value="{{ password }}" input-align="right" password="{{password_eys}}"  label="密码" placeholder="请输入网上服务大厅密码" required border="{{ false }}" use-icon-slot>
+                    use-icon-slot
+                    <van-icon slot="icon" name="{{eys_icon}}" color="#6e4175" bind:click="showPassword"/>
+                </van-field>
+                
+            </van-cell-group>
+        </view>
+    </view>
+    
+    <view class="form-submit">
+        <view class="form-submit-in">
+            <van-button type="primary" block color="#6e4175" bind:click="onCertificationSubmit">提交认证</van-button>
+        </view>
+    </view>
+  
+    <van-dialog id="van-dialog" />

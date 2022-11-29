@@ -1,0 +1,145 @@
+<scroll-view class="container">
+
+    <view class="top-background">
+
+        <view class="avatar">
+            <image style="width:144rpx;height:144rpx" src="../images/male.png"></image>
+        </view>
+        <view class="user">
+            <view class="fullname">{{userInfo.name}}</view>
+            <view class="status">统一认证号:{{userInfo.userId}}</view>
+        </view>
+    </view>
+    <view style="width: 100%;padding-top:50rpx;padding-bottom: 50rpx;background-color: #ffffff;">
+        <van-grid column-num="{{grid_column}}" border="{{ false }}" style="width: 100%;">
+            <block wx:for="{{gridList}}" wx:for-item="grid">
+                <van-grid-item icon="{{grid.icon}}" icon-size="30px" link-type="navigateTo" url="{{grid.url}}" text="{{grid.text}}" />
+            </block>
+        </van-grid>
+    </view>
+
+
+    <view class="modal">
+        <view class="header">
+            <view class="title">
+                <view class="title-left">
+                    <view class="left-icon">
+                        <van-icon name="todo-list" color="#6e4175" size="1.5em" />
+                    </view>
+                    <view class="title_left">今日课表</view>
+                </view>
+                <view class="title_right">
+                    <view>当前：第{{curWeek}}周{{weekDayMap[curWeekDay]}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="wrap">
+            <block wx:if="{{userInfo === null}}">
+                <view class="top-box">
+                    <view class="box-main">
+
+                        <view class="title_left">尚未认证，请认证！</view>
+
+                    </view>
+                </view>
+            </block>
+            <block wx:else>
+                <block wx:if="{{schedulerList.length > 0}}">
+                    <van-tabs color="#6e4175" swipeable animated swipe-threshold="3" active="{{ courseTabActive }}">
+
+                        <block wx:for="{{schedulerList}}" wx:for-index="morningIndex">
+                            <van-tab title="{{schedulerList[morningIndex].key}}">
+                                <block wx:if="{{schedulerList[morningIndex]['courses'].length > 0}}">
+                                    <block wx:for="{{schedulerList[morningIndex]['courses']}}" wx:for-index="coursesIndex">
+                                        <view class="top-box">
+                                            <block wx:if="{{coursesIndex > 0}}">
+                                                <view class="fenger-top">
+                                                    <p></p>
+                                                </view>
+                                            </block>
+                                            <view class="box-main">
+                                                <view class="box-main-left">
+                                                    <view class="box-title-icon">
+                                                        <image src="../images/course-a.svg"></image>
+                                                    </view>
+                                                </view>
+                                                <view class="box-main-right">
+                                                    <view class="courseInfo">
+                                                        <view class="courseInfo-tr fontBold">
+                                                            <block wx:if="{{schedulerList[morningIndex]['courses'][coursesIndex].schedualerType === 0}}">
+                                                                {{schedulerList[morningIndex]['courses'][coursesIndex].dutyer.name}}（坐班）
+                                                            </block>
+                                                            <block wx:else>
+
+                                                                <view class="exam_title">
+                                                                    <view>
+                                                                        {{schedulerList[morningIndex]['courses'][coursesIndex].course.courseName}}
+                                                                    </view>
+
+                                                                    <block wx:if="{{schedulerList[morningIndex]['courses'][coursesIndex].type === 1}}">
+                                                                        <view class="red">[临时活动]</view>
+                                                                    </block>
+                                                                    <block wx:if="{{schedulerList[morningIndex]['courses'][coursesIndex].type === 2}}">
+                                                                        <view class="red">[考试]</view>
+                                                                    </block>
+                                                                </view>
+                                                                <view class="exam_detail">
+                                                                    <view class="exam_detail_tr">
+                                                                        教室[节次]：{{schedulerList[morningIndex]['courses'][coursesIndex].room.name}}
+                                                                        [{{schedulerList[morningIndex]['courses'][coursesIndex].startPeriod}}-{{schedulerList[morningIndex]['courses'][coursesIndex].endPeriod}}]
+                                                                    </view>
+                                                                    <block wx:if="{{schedulerList[morningIndex]['courses'][coursesIndex].type !== 1}}">
+                                                                        <view class="exam_detail_tr">
+                                                                            学生人数：{{schedulerList[morningIndex]['courses'][coursesIndex].selectedStuNum}}
+                                                                        </view>
+                                                                    </block>
+
+                                                                    <view class="exam_detail_tr">值班人员：{{schedulerList[morningIndex]['courses'][coursesIndex].dutyer.name}} </view>
+                                                                </view>
+                                                            </block>
+                                                        </view>
+                                                    </view>
+
+
+                                                </view>
+                                            </view>
+                                            <block wx:if="{{coursesIndex < schedulerList[morningIndex]['courses'].length -1}}">
+                                                <view class="fenger-bottom">
+                                                    <p></p>
+                                                </view>
+                                            </block>
+                                        </view>
+                                    </block>
+                                </block>
+                                <block wx:else>
+                                    <view class="top-box">
+                                        <view class="box-main">
+                                            <view class="title_left">没有课程安排！</view>
+                                        </view>
+                                    </view>
+                                </block>
+                            </van-tab>
+                        </block>
+
+                    </van-tabs>
+                </block>
+                <block wx:else>
+                    <view class="top-box">
+                        <view class="box-main">
+                            <view class="title_left">今天无课程安排！</view>
+                        </view>
+                    </view>
+                </block>
+            </block>
+        </view>
+    </view>
+    <view style="height:117rpx;"></view>
+</scroll-view>
+
+<van-tabbar active="{{ active }}" active-color="#6e4175" inactive-color="#000" bind:change="onChange">
+    <van-tabbar-item icon="wap-home">首页</van-tabbar-item>
+    <van-tabbar-item icon="scan">扫描</van-tabbar-item>
+    <van-tabbar-item icon="manager">我的</van-tabbar-item>
+</van-tabbar>
+
+<van-dialog id="van-dialog" />

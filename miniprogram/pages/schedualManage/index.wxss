@@ -1,0 +1,160 @@
+/* pages/schedualManage/index.wxss */
+.container{
+    padding:30rpx;
+}
+
+.opt-btn{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding:30px;
+}
+
+.van-button--primary {
+    font-size: 20px;
+    background-color: pink;
+    width:200rpx;
+  }
+  .red{
+      color:red;
+  }
+  .opt-panel{
+      width:100%;
+  }
+
+  .form-main{
+    margin-top:30rpx;
+    margin-bottom:50rpx;
+}
+
+.title-right{
+    font-size: 24rpx;
+    color:#969799;
+    padding-right: 36rpx;
+}
+
+.form-submit{
+    padding-left:20rpx;
+    padding-right:20rpx;
+    margin-bottom:50rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.form-submit-in{
+    width:80%;
+}
+
+.captchaImg_cell_title{
+    display: flex;
+    align-items: center;
+}
+.captchaImg_cell_value{
+    flex:2;
+}
+
+  
+  .van-tabs__scroll{
+    width:100%;
+  }
+
+  .courseInfo{
+    font-size:30rpx;
+    padding-top:20rpx;
+    padding-bottom:20rpx;
+  }
+
+
+  .exam_title{
+    display:flex; 
+    flex-direction: row;
+  }
+
+  .exam_detail{
+    font-weight: normal;
+  }
+
+  .fontBold{
+      font-weight: bold;
+  }
+
+  .courseInfo-tr{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+  .box-content-tr{
+      height:80rpx;
+      line-height: 80rpx;
+      display: flex;
+      flex-direction: row;
+  }
+
+  .box-content-tr-notice image{
+    width:40rpx;
+    height:80rpx;
+    line-height: 80rpx;
+   
+}
+
+.box-content-tr-notice{
+    display: flex;
+      flex-direction: row;
+      font-size: 13px;
+      color:red;
+}
+
+  .courseTotels{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+  }
+
+.course-totel-container{
+    padding: 30rpx;
+}
+
+.course-totel-container-header{
+    height:80rpx;
+    line-height: 110rpx;
+    background-color: #ffffff;
+    text-align: center;
+    font-size:30rpx;
+    font-weight: bold;
+}
+  .course-totel{
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      border-bottom: 1px solid #f0f0f0;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      padding:30rpx;
+  }
+
+  .course-totel-tr{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 60rpx;
+    line-height: 60rpx;
+  }
+
+  .course-totel-td{
+      width:18%;
+      text-align: center;
+      border:1px solid #969799;
+  }
+
+  .course-totel-td-schedualer{
+    width:28%;
+    text-align: center;
+    border:1px solid #969799;
+}
+
+  .course-totel-header{
+      background-color: #f3f3f5;
+      font-weight: bold;
+  }

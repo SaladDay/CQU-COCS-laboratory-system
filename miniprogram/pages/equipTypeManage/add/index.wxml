@@ -1,0 +1,13 @@
+<view class="form-main">
+  <view class="form-main-in">
+    <van-cell-group>
+      <van-field value="{{ name }}" required clearable label="设备名称" placeholder="请输入设备名称" input-align="right" bind:change="onNameChange"/>
+      
+    </van-cell-group>
+  </view>
+</view>
+<view class="form-submit">
+  <view class="form-submit-in">
+    <van-button type="primary" block color="#6e4175" bind:click="onSubmit">提交</van-button>
+  </view>
+</view>

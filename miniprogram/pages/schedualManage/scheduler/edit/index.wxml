@@ -1,0 +1,28 @@
+<view class="form-main">
+    <view class="form-main-in">
+        <view class="header">
+            <view class="title">
+                <view class="title-left">
+                    <view class="left-icon"></view>
+                    <view class="title_left">{{title}}</view>
+                </view>
+            </view>
+        </view>
+        <van-cell-group>
+            <block wx:for="{{schedulerList}}" wx:for-index="idx">
+                <van-cell title="{{schedulerList[idx].title}}" title-width ="55%" value="{{ userList[schedulerList[idx].dutyerIndex].text }}" is-link data-id="{{idx}}" bind:click="onPickerDisplay" />
+                <van-popup show="{{ schedulerList[idx].dutyerShow }}" position="bottom">
+                    <van-picker columns="{{ userList }}" default-index="{{ schedulerList[idx].dutyerIndex }}" show-toolbar title="值班人员" data-id="{{idx}}" bind:cancel="onPickerCancel" bind:confirm="onPickerConfirm" />
+                </van-popup>
+            </block>
+        </van-cell-group>
+    </view>
+</view>
+
+<view class="form-submit">
+    <view class="form-submit-in">
+        <van-button type="primary" block color="#6e4175" bind:click="onSubmit">提交</van-button>
+    </view>
+</view>
+
+<van-dialog id="van-dialog" confirm-button-color="#6e4175" />

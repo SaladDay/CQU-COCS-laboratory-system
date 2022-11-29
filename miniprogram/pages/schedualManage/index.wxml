@@ -1,0 +1,535 @@
+<view class="container">
+    <van-steps active-color="#6e4175" style="width:100%;" steps="{{ steps }}" active="{{ active }}" />
+    <view class="opt-btn">
+        <block wx:if="{{active === 0}}">
+            <van-button color="#6e4175" disabled size="small" type="primary" bind:click="goLastStep">上一步</van-button>
+        </block>
+        <block wx:else>
+            <van-button color="#6e4175" size="small" type="primary" bind:click="goLastStep">上一步</van-button>
+        </block>
+        <block wx:if="{{active === (steps.length - 1)}}">
+            <van-button color="#6e4175" disabled size="small" type="primary" bind:click="goNextStep">下一步</van-button>
+        </block>
+        <block wx:else>
+            <van-button color="#6e4175" size="small" type="primary" bind:click="goNextStep">下一步</van-button>
+        </block>
+    </view>
+    <view class="opt-panel">
+        <view class="header">
+            <view class="title">
+                <view class="title-left">
+                    <view class="left-icon"></view>
+                    <view class="title_left">{{steps[active].text}}</view>
+                </view>
+                <view class="title-right">
+                    <view>当前周次：第{{curWeek}}周</view>
+                </view>
+            </view>
+            <van-cell center title="排班周次">
+                <van-stepper value="{{ selectWeek }}" min="{{1}}" max="{{maxWeek}}" bind:change="onWeekChange" />
+            </van-cell>
+        </view>
+    </view>
+</view>
+
+
+
+<block wx:if="{{active === 0}}">
+    <view class="form-submit">
+        <view class="form-submit-in">
+            <van-button type="primary" block color="#6e4175" bind:click="updateCourseInfo">更新</van-button>
+        </view>
+    </view>
+    <van-tabs id="courseTaps"  color="#6e4175" swipeable animated swipe-threshold="7" active="{{ courseTabActive }}">
+        <block wx:if="{{courseList.length > 0}}">
+            <block wx:for="{{courseList}}" wx:for-index="idx">
+                <van-tab title="{{courseList[idx].key}}" dot="{{course_list_more_sign[idx].dot}}">
+
+                    <view class="modal">
+                        <view class="header">
+                            <view class="title">
+                                <view class="title-left">
+                                    <view class="left-icon"></view>
+                                    <view class="title_left">{{courseList[idx].key}}</view>
+                                </view>
+                                <view class="title_right">
+                                    <view class="opt-icon add" data-id="{{courseList[idx]}}" bindtap="onAddSchedulerClick">
+                                        <van-icon class-prefix="iconfont" name="tianjiajilu" size="1.5em" />
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+
+                        <view class="wrap">
+                            <block wx:if="{{courseList[idx]['morningCourses'].length > 0}}">
+                                <view class="middle-box" wx:for="{{courseList[idx]['morningCourses']}}" wx:for-index="i">
+                                    <block wx:if="{{i >= 1}}">
+                                        <view class="fenger-top">
+                                            <p></p>
+                                        </view>
+                                    </block>
+                                    <view class="box-main">
+                                        <view class="box-main-left">
+                                            <view class="box-title-icon">
+                                                <image src="../images/date.svg" />
+                                            </view>
+                                        </view>
+                                        <view class="box-main-right">
+                                            <view class="box-title">
+                                                <view class="box-title-content">
+                                                    <view>{{courseList[idx]['morningCourses'][i].key}}</view>
+                                                </view>
+                                            </view>
+                                            <view class="box-content">
+                                                <block wx:for="{{courseList[idx]['morningCourses'][i]['courses']}}" wx:for-index="coursesIndex">
+                                                    <view class="courseInfo">
+                                                        <view class="courseInfo-tr fontBold courseInfo-title">
+                                                            <view>
+                                                                {{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].room.name}}
+                                                                [{{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].startPeriod}}-{{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].endPeriod}}
+                                                                ]
+                                                                [人数：{{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].selectedStuNum}}]
+                                                            </view>
+
+                                                            <block wx:if="{{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].type === 3}}">
+                                                                <view class="box-title-optlist">
+                                                                    <block wx:if="{{course_list_more_sign[idx]['morningCourses'][i]['courses'][coursesIndex]}}">
+                                                                        <view class="opt-icon remove" data-id="{{idx}}-{{i}}-{{coursesIndex}}" bindtap="onCourseRemoveClick">
+                                                                            <image src="../images/remove.svg" />
+                                                                        </view>
+                                                                        <view class="opt-icon edit" data-id="{{idx}}-{{i}}-{{coursesIndex}}" bindtap="onCourseEditClick">
+                                                                            <image src="../images/edit.svg" />
+                                                                        </view>
+                                                                    </block>
+
+                                                                    <view class="opt-icon more" data-id="{{idx}}-{{i}}-{{coursesIndex}}" bindtap="onCourseMoreClick">
+                                                                        <block wx:if="{{course_list_more_sign[idx]['morningCourses'][i]['courses'][coursesIndex]}}">
+                                                                            <image src="../images/moreo.svg" />
+                                                                        </block>
+                                                                        <block wx:else>
+                                                                            <image src="../images/more.svg" />
+                                                                        </block>
+                                                                    </view>
+                                                                </view>
+                                                            </block>
+                                                            <block wx:else>
+
+                                                                <block wx:if="{{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].isSchedul === 0}}">
+                                                                    <view class="box-title-optlist">
+                                                                        <block wx:if="{{course_list_more_sign[idx]['morningCourses'][i]['courses'][coursesIndex]}}">
+                                                                            <view class="opt-icon edit" data-id="{{idx}}-{{i}}-{{coursesIndex}}" bindtap="onCourseEditClick">
+                                                                                <image src="../images/edit.svg" />
+                                                                            </view>
+                                                                        </block>
+                                                                        <view class="opt-icon more" data-id="{{idx}}-{{i}}-{{coursesIndex}}" bindtap="onCourseMoreClick">
+                                                                            <block wx:if="{{course_list_more_sign[idx]['morningCourses'][i]['courses'][coursesIndex]}}">
+                                                                                <image src="../images/moreo.svg" />
+                                                                            </block>
+                                                                            <block wx:else>
+                                                                                <image src="../images/more.svg" />
+                                                                            </block>
+                                                                        </view>
+                                                                    </view>
+                                                                </block>
+                                                            </block>
+
+                                                        </view>
+                                                        <view class="courseInfo-tr">
+                                                            课程：{{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].courseName}}
+                                                        </view>
+                                                        <view class="courseInfo-tr">
+
+                                                            主讲：{{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].instructorName}}
+                                                        </view>
+                                                        <block wx:if="{{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].type > 0}}">
+                                                            <view class="courseInfo-tr red ">
+                                                                备注:<block wx:if="{{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].type == 1}}">临时活动</block>
+                                                                <block wx:if="{{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].type == 2}}">考试</block>
+                                                                <block wx:if="{{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].type == 3}}">手动录入</block>
+
+                                                            </view>
+                                                        </block>
+                                                    </view>
+                                                </block>
+                                            </view>
+                                        </view>
+                                    </view>
+                                    <block wx:if="{{i < courseList[idx]['morningCourses'].length -1}}">
+                                        <view class="fenger-bottom">
+                                            <p></p>
+                                        </view>
+                                    </block>
+                                </view>
+
+                            </block>
+                            <block wx:else>
+                                <view class="top-box">
+                                    <view class="box-main">
+                                        系统中暂无第{{selectWeek}}周课表数据，请登录教务系统获取！
+                                    </view>
+                                </view>
+                            </block>
+                        </view>
+                    </view>
+                </van-tab>
+            </block>
+        </block>
+        <block wx:else>
+            <view class="modal">
+                <view class="header">
+                    <view class="title">
+                        <view class="title-left">
+                            <view class="left-icon"></view>
+                            <view class="title_left">暂无第{{selectWeek}}周课表数据，请登录教务系统更新！</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </van-tabs>
+</block>
+<block wx:elif="{{active === 1}}">
+    <view class="modal">
+        <view class="header">
+            <view class="title">
+                <view class="title-left">
+                    <view class="left-icon"></view>
+                    <view class="title_left">排课规则</view>
+                </view>
+                <block wx:if="{{ruleList.length < 7}}">
+                    <view class="title_right">
+                        <view class="opt-icon add" bindtap="onAddRuleClick">
+                            <van-icon class-prefix="iconfont" name="tianjiajilu" />
+                        </view>
+                    </view>
+                </block>
+            </view>
+        </view>
+        <view class="wrap">
+            <block wx:if="{{ruleList.length > 0}}">
+                <view class="middle-box" wx:for="{{ruleList}}" wx:for-index="i">
+                    <block wx:if="{{i >= 1}}">
+                        <view class="fenger-top">
+                            <p></p>
+                        </view>
+                    </block>
+                    <view class="box-main">
+                        <view class="box-main-left">
+                            <view class="box-title-icon">
+                                <image src="../images/date.svg" />
+                            </view>
+                        </view>
+                        <view class="box-main-right">
+                            <view class="box-title">
+                                <view class="box-title-content">
+                                    <view>{{ruleList[i].weekDayStr}}(早中晚：[{{ruleList[i].coursesTotels}}])</view>
+                                </view>
+                                <view class="box-title-optlist">
+                                    <block wx:if="{{rule_list_more_sign[i]}}">
+                                        <view class="opt-icon remove" data-id="{{ruleList[i].id}}" bindtap="onRemoveClick">
+                                            <image src="../images/remove.svg" />
+                                        </view>
+                                        <view class="opt-icon edit" data-id="{{ruleList[i].id}}" bindtap="onEditClick">
+                                            <image src="../images/edit.svg" />
+                                        </view>
+                                    </block>
+                                    <view class="opt-icon more" data-id="{{ruleList[i].id}}" bindtap="onMoreClick">
+                                        <block wx:if="{{rule_list_more_sign[i]}}">
+                                            <image src="../images/moreo.svg" />
+                                        </block>
+                                        <block wx:else>
+                                            <image src="../images/more.svg" />
+                                        </block>
+                                    </view>
+                                </view>
+                            </view>
+                            <view class="box-content">
+                                <view class="box-content-tr">
+                                    <view>值班人员1：{{ruleList[i].dutyer.name?ruleList[i].dutyer.name:'暂无'}}</view>
+                                    <block wx:if="{{ruleList[i].dutyerConflictStr}}">
+                                        <view  class="box-content-tr-notice">
+                                            (<image src="../images/notice.svg" />
+                                            <view>{{ruleList[i].dutyerConflictStr}}</view>)
+                                        </view>
+                                    </block>
+                                </view>
+                                <view class="box-content-tr">值班人员2：{{ruleList[i].manager.name?ruleList[i].manager.name:'暂无'}}</view>
+                                <view class="box-content-tr">是否坐班：{{ruleList[i].isScheduler?'是':'否'}}</view>
+                            </view>
+                        </view>
+                    </view>
+                    <block wx:if="{{i < ruleList.length -1}}">
+                        <view class="fenger-bottom">
+                            <p></p>
+                        </view>
+                    </block>
+                </view>
+            </block>
+            <block wx:else>
+                <view class="top-box">
+                    <view class="box-main">
+                        暂无数据！
+                    </view>
+                </view>
+            </block>
+        </view>
+    </view>
+</block>
+
+<block wx:elif="{{active === 2}}">
+    <view class="form-submit">
+        <view class="form-submit-in">
+            <van-button type="primary" block color="#6e4175" bind:click="startScheduler">初排</van-button>
+        </view>
+    </view>
+   
+ 
+    <van-tabs id="courseTaps" color="#6e4175" swipeable animated swipe-threshold="7" active="{{ courseTabActive }}">
+        <block wx:if="{{schedulerList.length > 0}}">
+            <block wx:for="{{schedulerList}}" wx:for-index="idx">
+                <van-tab title="{{schedulerList[idx].key}}">
+                    <view class="modal">
+                        <view class="header">
+                            <view class="title">
+                                <view class="title-left">
+                                    <view class="left-icon"></view>
+                                    <view class="title_left">{{schedulerList[idx].key}}</view>
+                                </view>
+                            </view>
+                        </view>
+
+                        <view class="wrap">
+                            <block wx:if="{{schedulerList[idx]['morningCourses'].length > 0}}">
+                                <view class="middle-box" wx:for="{{schedulerList[idx]['morningCourses']}}" wx:for-index="i">
+                                    <block wx:if="{{i >= 1}}">
+                                        <view class="fenger-top">
+                                            <p></p>
+                                        </view>
+                                    </block>
+                                    <view class="box-main">
+                                        <view class="box-main-left">
+                                            <view class="box-title-icon">
+                                                <image src="../images/date.svg" />
+                                            </view>
+                                        </view>
+                                        <view class="box-main-right">
+                                            <view class="box-title">
+                                                <view class="box-title-content">
+                                                    <view>{{schedulerList[idx]['morningCourses'][i].key}}</view>
+                                                </view>
+                                                <view class="box-title-optlist">
+                                                    <block wx:if="{{schedulerList[idx]['morningCourses'][i]['courses'][0].schedualerType === 0}}">
+                                                        <view class="opt-icon edit" data-id="{{schedulerList[idx]['morningCourses'][i]['courses'][0]._id}}" bindtap="onRemoveSchedulerClick">
+                                                            <image src="../images/remove.svg" />
+                                                        </view>
+                                                    </block>
+                                                    <view class="opt-icon edit" data-id="{{schedulerList[idx]['morningCourses'][i]['courses']}}" bindtap="onEditSchedulerClick">
+                                                        <image src="../images/edit.svg" />
+                                                    </view>
+                                                </view>
+                                            </view>
+                                            <view class="box-content">
+                                                <block wx:for="{{schedulerList[idx]['morningCourses'][i]['courses']}}" wx:for-index=schedulerIndex">
+                                                    <view class="courseInfo">
+                                                        <view class="fontBold">
+                                                            <block wx:if="{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].schedualerType === 0}}">
+                                                                {{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].dutyer.name}}（坐班）
+                                                            </block>
+                                                            <block wx:else>
+
+                                                                <view class="exam_title">
+                                                                    <view>
+                                                                        {{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].room.name}}
+                                                                        [{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].startPeriod}}-{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].endPeriod}}]
+                                                                    </view>
+                                                                    <block wx:if="{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].type === 0}}">
+                                                                        <view>[上课]</view>
+                                                                    </block>
+                                                                    <block wx:if="{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].type === 1}}">
+                                                                        <view class="red">[临时活动]</view>
+                                                                    </block>
+                                                                    <block wx:if="{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].type === 2}}">
+                                                                        <view class="red">[考试]</view>
+                                                                    </block>
+                                                                    <block wx:if="{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].type === 3}}">
+                                                                        <view class="red">[临时活动]</view>
+                                                                    </block>
+
+                                                                </view>
+                                                                <view class="exam_detail">
+                                                                    <view>
+                                                                        学生人数：{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].selectedStuNum}}
+                                                                    </view>
+                                                                    <view>
+                                                                        值班人员：{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].dutyer.name}}
+                                                                    </view>
+                                                                </view>
+                                                            </block>
+                                                        </view>
+                                                    </view>
+                                                </block>
+                                            </view>
+                                        </view>
+                                    </view>
+                                    <block wx:if="{{i < schedulerList[idx]['morningCourses'].length -1}}">
+                                        <view class="fenger-bottom">
+                                            <p></p>
+                                        </view>
+                                    </block>
+                                </view>
+                            </block>
+                            <block wx:else>
+                                <view class="top-box">
+                                    <view class="box-main">
+                                        暂无第{{selectWeek}}周排班数据！
+                                    </view>
+                                </view>
+                            </block>
+                        </view>
+                    </view>
+                </van-tab>
+            </block>
+        </block>
+        <block wx:else>
+            <view class="modal">
+                <view class="header">
+                    <view class="title">
+                        <view class="title-left">
+                            <view class="left-icon"></view>
+                            <view class="title_left">暂无第{{selectWeek}}周排班数据！</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </van-tabs>
+</block>
+
+<block wx:elif="{{active === 3}}">
+    <view class="form-submit">
+        <view class="form-submit-in">
+            <van-button type="primary" block color="#6e4175" bind:click="publishScheduler">发布</van-button>
+        </view>
+    </view>
+
+    <van-tabs id="courseTaps"  color="#6e4175" swipeable animated swipe-threshold="7" active="{{ courseTabActive }}">
+        <block wx:if="{{schedulerList.length > 0}}">
+            <block wx:for="{{schedulerList}}" wx:for-index="idx">
+                <van-tab title="{{schedulerList[idx].key}}">
+                    <view class="modal">
+                        <view class="header">
+                            <view class="title">
+                                <view class="title-left">
+                                    <view class="left-icon"></view>
+                                    <view class="title_left">{{schedulerList[idx].key}}</view>
+                                    <block wx:if="{{schedulerList[idx]['morningCourses'][0]['courses'][0].finish == true}}">
+                                        <view class="title_left red">(已发布)</view>
+                                    </block>
+                                    <block wx:else>
+                                        <view class="title_left red">(待发布)</view>
+                                    </block>
+                                </view>
+                            </view>
+                        </view>
+
+                        <view class="wrap">
+                            <block wx:if="{{schedulerList[idx]['morningCourses'].length > 0}}">
+                                <view class="middle-box" wx:for="{{schedulerList[idx]['morningCourses']}}" wx:for-index="i">
+                                    <block wx:if="{{i >= 1}}">
+                                        <view class="fenger-top">
+                                            <p></p>
+                                        </view>
+                                    </block>
+                                    <view class="box-main">
+                                        <view class="box-main-left">
+                                            <view class="box-title-icon">
+                                                <image src="../images/date.svg" />
+                                            </view>
+                                        </view>
+                                        <view class="box-main-right">
+                                            <view class="box-title">
+                                                <view class="box-title-content">
+                                                    <view>{{schedulerList[idx]['morningCourses'][i].key}}</view>
+                                                </view>
+                                                <view class="box-title-optlist">
+                                                    <view class="opt-icon edit" data-id="{{schedulerList[idx]['morningCourses'][i]['courses']}}" bindtap="onEditSchedulerClick">
+                                                        <image src="../images/edit.svg" />
+                                                    </view>
+                                                </view>
+                                            </view>
+                                            <view class="box-content">
+                                                <block wx:for="{{schedulerList[idx]['morningCourses'][i]['courses']}}" wx:for-index=schedulerIndex">
+                                                    <view class="courseInfo">
+                                                        <view class="fontBold">
+                                                            <block wx:if="{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].schedualerType === 0}}">
+                                                                {{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].dutyer.name}}（坐班）
+                                                            </block>
+                                                            <block wx:else>
+
+                                                                <view class="exam_title">
+                                                                    <view>
+                                                                        {{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].room.name}}
+                                                                        [{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].startPeriod}}-{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].endPeriod}}]
+                                                                    </view>
+                                                                    <block wx:if="{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].type === 0}}">
+                                                                        <view>[上课]</view>
+                                                                    </block>
+                                                                    <block wx:if="{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].type === 1}}">
+                                                                        <view class="red">[临时活动]</view>
+                                                                    </block>
+                                                                    <block wx:if="{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].type === 2}}">
+                                                                        <view class="red">[考试]</view>
+                                                                    </block>
+
+                                                                </view>
+                                                                <view class="exam_detail">
+                                                                    <view>
+                                                                        学生人数：{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].selectedStuNum}}
+                                                                    </view>
+                                                                    <view>
+                                                                        值班人员：{{schedulerList[idx]['morningCourses'][i]['courses'][schedulerIndex].dutyer.name}}
+                                                                    </view>
+                                                                </view>
+                                                            </block>
+                                                        </view>
+                                                    </view>
+                                                </block>
+                                            </view>
+                                        </view>
+                                    </view>
+                                    <block wx:if="{{i < schedulerList[idx]['morningCourses'].length -1}}">
+                                        <view class="fenger-bottom">
+                                            <p></p>
+                                        </view>
+                                    </block>
+                                </view>
+                            </block>
+                            <block wx:else>
+                                <view class="top-box">
+                                    <view class="box-main">
+                                        暂无第{{selectWeek}}周排班数据！
+                                    </view>
+                                </view>
+                            </block>
+                        </view>
+
+                    </view>
+                </van-tab>
+            </block>
+        </block>
+        <block wx:else>
+            <view class="modal">
+                <view class="header">
+                    <view class="title">
+                        <view class="title-left">
+                            <view class="left-icon"></view>
+                            <view class="title_left">暂无第{{selectWeek}}周排班数据！</view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </van-tabs>
+</block>
+
+<van-dialog id="van-dialog" confirm-button-color="#6e4175" />

@@ -1,0 +1,21 @@
+/* pages/user/index.wxss */
+.search{
+    width: 100%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  
+  .block {
+    width: 120px;
+    height: 120px;
+    background-color: #fff;
+  }

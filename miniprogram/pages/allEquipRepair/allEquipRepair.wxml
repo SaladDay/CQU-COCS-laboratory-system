@@ -1,0 +1,94 @@
+<view class="header-box" wx:if="{{equipRepairList.length===0}}">
+
+<view class="warring_top">
+<image src="/pages/images/warringico.png" class="warringico"></image>
+<view class="warring_text">
+    当前暂无保修单数据
+</view>
+
+</view>
+<button class="warring_btn" bindtap="escUp">确定</button>
+</view>
+
+<view wx:else class="modal">
+
+<view class="header">
+<view class="title">
+    <view class="title-left">
+        <view class="left-icon"></view>
+        <view class="title_left">所有报修(管理员)</view>
+    </view>
+    
+</view>
+</view>
+
+<view class="wrap">
+<block wx:if="{{equipRepairList.length > 0}}">
+    <view class="middle-box" wx:for="{{equipRepairList}}" wx:for-index="i">
+        <block wx:if="{{i >= 1}}">
+            <view class="fenger-top">
+                <p></p>
+            </view>
+        </block>
+        <view class="box-main">
+            <view class="box-main-left">
+                <view class="box-title-icon">
+                    <image src="../images/date.svg" />
+                </view>
+            </view>
+            <view class="box-main-right">
+                <view class="box-title">
+                    <view class="box-title-content">
+                        <view>{{'设备'+equipRepairList[i].equipId}}</view>
+                    </view>
+                    <view class="box-title-optlist">
+                        <block wx:if="{{list_more_sign[i]}}">
+                            <view class="opt-icon remove" data-id="{{equipRepairList[i].id}}" bindtap="onRemoveClick">
+                                <image src="../images/remove.svg" />
+                            </view>
+                            <view class="opt-icon edit" data-id="{{equipRepairList[i].id}}" bindtap="onAllClick">
+                                <image src="../images/all.svg" />
+                            </view>
+                        </block>
+                        <view class="opt-icon more" data-id="{{equipRepairList[i].id}}" bindtap="onMoreClick">
+                            <block wx:if="{{list_more_sign[i]}}">
+                                <image src="../images/moreo.svg" />
+                            </block>
+                            <block wx:else>
+                                <image src="../images/more.svg" />
+                            </block>
+                        </view>
+                    </view>
+                </view>
+                <view class="box-content">
+                    <view class="box-content-tr">设备房间：{{equipRepairList[i].equipRoom}}</view>
+                    
+                    <view class="box-content-tr">设备管理员: {{equipRepairList[i].equipRoomManagerName}}</view>
+                    <view class="box-content-tr">报修时间: {{equipRepairList[i].creatDate}}</view>
+                    <view class="box-content-tr">检修时间: {{equipRepairList[i].repairTime}}</view>
+                    <view class="box-content-tr">报修单号: {{equipRepairList[i]._id}}</view>
+                    <button wx:if="{{equipRepairList[i].state === 1}}" class="box-content-state done" >工单已完成</button>
+                    <button wx:if="{{equipRepairList[i].state === 0}}"  class="box-content-state undone" 
+                    bindtap="toSolve" data-id="{{equipRepairList[i].id}}"
+                    >工单未完成</button>
+                </view>
+                
+            </view>
+        </view>
+        <block wx:if="{{i < equipRepairList.length -1}}">
+            <view class="fenger-bottom">
+                <p></p>
+            </view>
+        </block>
+    </view>
+</block>
+<block wx:else>
+    <view class="top-box">
+        <view class="box-main">
+            暂无数据！
+        </view>
+    </view>
+</block>
+</view>
+
+</view>

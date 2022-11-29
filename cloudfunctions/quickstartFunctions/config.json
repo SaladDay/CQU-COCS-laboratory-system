@@ -1,0 +1,14 @@
+{
+    "permissions": {
+        "openapi": [
+            "wxacode.getUnlimited"
+        ]
+    },
+    "triggers": [
+      {
+        "name": "autoCrawlerCourseList",
+        "type": "timer",
+        "config": "0 0 10 * * * *"
+      }
+    ]
+}

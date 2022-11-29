@@ -1,0 +1,37 @@
+/* pages/schedualQuery/index.wxss *//**index.wxss**/
+
+page {
+    background-color: #ffffff;
+    height: 100%;
+  }
+  .container{
+    display: block;
+    padding:30rpx;
+    background-color: #f0f0f0;
+}
+.modal {
+    padding: 0rpx;
+    margin-top: 0rpx;
+}
+  
+.courseInfo{
+    font-size:30rpx;
+    padding-top:20rpx;
+    padding-bottom:20rpx;
+  }
+
+
+
+  .fontBold{
+      font-weight: bold;
+  }
+
+  .exam_title{
+    display:flex; 
+    flex-direction: row;
+  }
+
+  .exam_detail{
+    font-weight: normal;
+  }
+ 

@@ -1,0 +1,17 @@
+/* pages/myEquipRepair/all/all.wxss */
+.box-content-tr.all{
+    height: unset;
+}
+.picture-container {
+    box-sizing:border-box;
+    padding:20rpx;
+  } 
+  .previewimg{
+    width: 400rpx;
+    height: 400rpx;
+    margin: 2%;
+  }
+  .previewimg image{
+    width:100%;
+    height:100%;
+  }

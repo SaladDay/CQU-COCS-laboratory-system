@@ -1,0 +1,22 @@
+<view class="form-main">
+  <view class="form-main-in">
+    <van-cell-group>
+      <van-field value="{{ name }}" required clearable label="教室名称" placeholder="请输入教室名字" input-align="right" bind:change="onNameChange"/>
+      <van-field value="{{ roomCode }}" required clearable label="教室编码" placeholder="请输入教室编码" input-align="right" bind:change="onRoomCodeChange"/>
+      <van-cell title="管理员" value="{{ userList[managerIndex] }}" is-link  data-id="manager"  bind:click="onDisplay"/>
+      <van-popup show="{{ show }}"  data-id="manager" bind:close="onClose" position="bottom">
+        <van-picker columns="{{ userList }}" show-toolbar title="管理员" data-id="manager"  bind:cancel="onClose" bind:confirm="onConfirm" />
+      </van-popup>
+
+      <van-cell title="排班员" value="{{ schedulerList[schedulerIndex] }}" is-link data-id="scheduler" bind:click="onDisplay"/>
+      <van-popup show="{{ schedulerShow }}" data-id="scheduler" bind:close="onClose" position="bottom">
+        <van-picker columns="{{ schedulerList }}" show-toolbar title="排班员" data-id="scheduler" bind:cancel="onClose" bind:confirm="onConfirm" />
+      </van-popup>
+    </van-cell-group>
+  </view>
+</view>
+<view class="form-submit">
+  <view class="form-submit-in">
+    <van-button type="primary" block color="#6e4175" bind:click="onSubmit">提交</van-button>
+  </view>
+</view>

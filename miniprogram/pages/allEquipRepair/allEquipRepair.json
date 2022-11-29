@@ -1,0 +1,14 @@
+{
+    "navigationBarTitleText": "所有报修",
+    "usingComponents": {
+      "van-icon": "@vant/weapp/icon/index",
+      "van-cell": "@vant/weapp/cell/index",
+      "van-cell-group": "@vant/weapp/cell-group/index",
+      "van-swipe-cell": "@vant/weapp/swipe-cell/index",
+      "van-button": "@vant/weapp/button/index",
+      "van-divider": "@vant/weapp/divider/index",
+      "van-tabbar": "@vant/weapp/tabbar/index",
+      "van-tabbar-item": "@vant/weapp/tabbar-item/index",
+      "van-image": "@vant/weapp/image/index"
+    }
+  }

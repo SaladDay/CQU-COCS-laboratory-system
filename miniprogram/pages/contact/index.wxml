@@ -1,0 +1,58 @@
+<view class="modal">
+    <view class="header">
+        <view class="title">
+            <view class="title-left">
+                <view class="left-icon"></view>
+                <view class="title_left">{{title}}</view>
+            </view>
+        </view>
+    </view>
+
+    <view class="wrap">
+        <block wx:if="{{list.length > 0}}">
+            <view class="middle-box" wx:for="{{list}}" wx:for-index="i">
+                <block wx:if="{{i >= 1}}">
+                    <view class="fenger-top">
+                        <p></p>
+                    </view>
+                </block>
+                <view class="box-main">
+                    <view class="box-main-left">
+                        <view class="box-title-icon">
+                            <image src="../images/date.svg" />
+                        </view>
+                    </view>
+                    <view class="box-main-right">
+                        <view class="box-title">
+                            <view class="box-title-content">
+                                <view>{{list[i].dutyer.name}}</view>
+                                <view><image src="../images/tel.svg"/></view>
+                            </view>
+                        </view>
+                        <view class="box-content">
+                        <block wx:if="{{list[i].room}}">
+                            <view class="box-content-tr">值班教室：{{list[i].room.name}}</view>
+                        </block>
+                            <view class="box-content-tr">
+                                <view>手机号码：{{list[i].dutyer.tel?list[i].dutyer.tel:'暂无'}}</view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <block wx:if="{{i < list.length -1}}">
+                    <view class="fenger-bottom">
+                        <p></p>
+                    </view>
+                </block>
+            </view>
+        </block>
+        <block wx:else>
+            <view class="top-box">
+                <view class="box-main">
+                    暂无数据！
+                </view>
+            </view>
+        </block>
+    </view>
+
+</view>

@@ -1,0 +1,53 @@
+
+.Certification{
+    margin-bottom:30rpx;
+}
+.Certification-title{
+    margin-top:30rpx;
+    margin-bottom:30rpx;
+    height:100rpx;
+    line-height: 100rpx;
+    color:#6e4175;
+    font-size: 50rpx;
+    text-align: center;
+}
+.Certification-logo{
+    margin-bottom:100rpx;
+    color:#ffffff;
+    width:100%;
+    text-align: center;
+}
+.form-main{
+    margin-top:50rpx;
+    padding-bottom:50rpx;
+    margin-left:30rpx;
+    margin-right:30rpx;
+    
+}
+
+.form-submit{
+    padding-left:20rpx;
+    padding-right:20rpx;
+    margin-bottom:50rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.form-submit-in{
+    width:80%;
+}
+
+.form-bottom{
+    text-align: center;
+    font-size: 14px;
+    color:#6e4175;
+    height:200rpx;
+    line-height: 200rpx;
+}
+.certification-cell{
+    width:60%;
+    justify-content: center;
+}
+.certification-cell-title{
+    flex:0;
+}

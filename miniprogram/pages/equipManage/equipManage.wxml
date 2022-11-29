@@ -1,0 +1,88 @@
+<scroll-view class="modal" style="height: {{scrollHeight}}px;" scroll-y="true" bindscrolltolower="onScrollRefresh">
+    <view class="header">
+        <view class="title">
+            <view class="title-left">
+                <view class="left-icon"></view>
+                <view class="title_left">{{title}}</view>
+            </view>
+            <view class="title_right">
+                <view class="opt-icon add" bindtap="onAddClick">
+          <van-icon class-prefix="iconfont" name="tianjiajilu" />
+        </view>
+
+            </view>
+        </view>
+
+    </view>
+    <view class="search">
+        <van-search value="{{ keyValue }}" placeholder="请输入设备编号" show-action bind:search="onSearch" bind:cancel="onCancel" />
+    </view>
+    <view class="wrap">
+        <block wx:if="{{list.length > 0}}">
+            <view class="middle-box" wx:for="{{list}}" wx:for-index="i">
+                <block wx:if="{{i >= 1}}">
+                    <view class="fenger-top">
+                        <p></p>
+                    </view>
+                </block>
+                <view class="box-main">
+                    <view class="box-main-left">
+                        <view class="box-title-icon">
+                            <image src="../images/date.svg" />
+                        </view>
+                    </view>
+                    <view class="box-main-right">
+                        <view class="box-title">
+                            <view class="box-title-content">
+                                <view>{{list[i].name}}</view>
+                            </view>
+                            <view class="box-title-optlist">
+                                <block wx:if="{{list_more_sign[i]}}">
+                                    <view class="opt-icon remove" data-id="{{list[i].id}}" bindtap="onRemoveClick">
+                                        <image src="../images/remove.svg" />
+                                    </view>
+                                    <!-- <view class="opt-icon edit" data-id="{{list[i].id}}" bindtap="onEditClick">
+                                        <image src="../images/edit.svg" />
+                                    </view> -->
+                                </block>
+                                <view class="opt-icon more" data-id="{{list[i].id}}" bindtap="onMoreClick">
+                                    <block wx:if="{{list_more_sign[i]}}">
+                                        <image src="../images/moreo.svg" />
+                                    </block>
+                                    <block wx:else>
+                                        <image src="../images/more.svg" />
+                                    </block>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="box-content">
+                            <view class="box-content-tr">设备类型：{{list[i].equipType[0].name}}</view>
+                            <view class="box-content-tr">设备编号：{{list[i].equipNameId}}</view>
+                            <view class="box-content-tr">房间名称：{{list[i].room.name}}</view>
+                            <view class="box-content-tr">房间管理员：{{list[i].room.manager[0].name}}</view>
+                            <view class="box-content-tr">目前状态：{{list[i].state?'正常':'维修中'}}</view>
+                            
+                        </view>
+                    </view>
+                </view>
+                <block wx:if="{{i < list.length -1}}">
+                    <view class="fenger-bottom">
+                        <p></p>
+                    </view>
+                </block>
+            </view>
+        </block>
+        <block wx:else>
+            <view class="top-box">
+                <view class="box-main">
+                    暂无<block wx:if="{{keyword != ''}}">设备号为{{keyword}}的设备</block>数据！
+                </view>
+            </view>
+        </block>
+    </view>
+    <van-overlay show="{{ loadingShow }}" bind:click="onClickLoadingHide">
+        <view class="wrapper">
+            <van-loading type="spinner" color="#1989fa">加载中...</van-loading>
+        </view>
+    </van-overlay>
+</scroll-view>

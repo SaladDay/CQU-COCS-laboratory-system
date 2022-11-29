@@ -1,0 +1,18 @@
+<!--pages/test/css/index.wxml-->
+<view class="container">
+
+    <view class="top">
+        上部
+    </view>
+
+    <view class="middle">
+        <view class="middle-content">
+            中部
+        </view>
+    </view>
+
+    <view  class="bottom">
+        底部
+    </view>
+
+</view>

@@ -1,0 +1,41 @@
+<view class="container">
+    <view class="top-background">
+        <view class="avatar">
+            <image style="width:144rpx;height:144rpx" src="../images/male.png"></image>
+        </view>
+        <view class="user">
+            <view class="fullname">{{userInfo.name}}（{{userInfo.userId}}）</view>
+            <view class="department">{{userInfo.department}}</view>
+        </view>
+    </view>
+    <view class="body">
+        <van-cell-group>
+            <van-cell is-link border="true" title="个人信息" link-type="navigateTo" url="/pages/myUser/index" />
+        </van-cell-group>
+    </view>
+    <view class="body">
+        <van-cell-group>
+            <van-cell is-link  border="true" title="我的值班" link-type="navigateTo" url="/pages/mySchedual/index" />
+            <van-cell is-link  border="true" title="我的课表" link-type="navigateTo" url="/pages/myCourse/index" />
+            <van-cell is-link  border="true" title="我的教室" link-type="navigateTo" url="/pages/myRoom/index" />
+        </van-cell-group>
+    </view>
+    <view class="logout">
+        <view class="logout-view">
+            <van-button plain type="primary" block color="#6e4175" bind:click="clearStorage">清理缓存</van-button>
+        </view>
+       
+    </view>
+    <view class="logout">
+       
+        <view class="logout-view">
+            <van-button type="primary" block color="#6e4175" bind:click="updateCourseInfo">注销</van-button>
+        </view>
+    </view>
+</view>
+<van-tabbar active="{{ active }}" active-color="#6e4175" inactive-color="#000" bind:change="onChange">
+    <van-tabbar-item icon="wap-home">首页</van-tabbar-item>
+    <van-tabbar-item icon="column">课表</van-tabbar-item>
+    <van-tabbar-item icon="todo-list">值班表</van-tabbar-item>
+    <van-tabbar-item icon="manager">我的</van-tabbar-item>
+</van-tabbar>

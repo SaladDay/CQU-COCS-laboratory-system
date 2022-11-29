@@ -1,0 +1,21 @@
+<view class="form-main">
+        <view class="form-main-in">
+            <view class="Certification">
+                <view class="Certification-logo">
+                    <image style="width:500rpx; height:350rpx;" src="../../images/logo.png"></image>
+                </view>
+            </view>
+            <van-cell-group>
+                <van-field label="姓名" model:value="{{ fullname }}" placeholder="请输入姓名" />
+                <van-field label="工号" model:value="{{ userId }}" placeholder="请输入工号" />
+                <van-field label="邀请码" model:value="{{ registerCode }}" placeholder="请输入邀请码" />
+            </van-cell-group>
+        </view>
+    </view>
+    
+    <view class="form-submit">
+        <view class="form-submit-in">
+            <van-button type="primary" block color="#6e4175" bind:click="onCertificationSubmit">提交认证</van-button>
+        </view>
+    </view>
+    <view class="form-bottom">首次登录系统需要认证！</view>

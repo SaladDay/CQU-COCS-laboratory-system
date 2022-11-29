@@ -1,0 +1,193 @@
+/**index.wxss**/
+
+page {
+  background-color: #f0f0f0;
+ 
+}
+
+.container{
+  background-color: #f0f0f0;
+  padding-bottom: 60rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+.top-background{
+  width:100%;
+  height:198rpx;
+  background-color: #6e4175;
+  display: flex;
+  flex-direction: row;
+  padding:30rpx;
+  color:#f7ededd9;
+  font-size: 36rpx;
+}
+.avatar{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.user{
+  margin:40rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card{
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background: transparent;
+}
+
+.modal {
+  
+  padding: 30rpx;
+  background-color: #f0f0f0;
+}
+
+.title_right{
+  font-size: 30rpx;
+  color: #666666;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.wrap {
+  width: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  background-color: #f0f0f0;
+  padding-bottom: 0rpx;
+}
+.box-main{
+  display: flex;
+  flex-direction: row;
+  font-size:30rpx;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+}
+
+.left-icon {
+  height: 48rpx;
+  width: 2em;
+  border-left: 0rpx solid #6e4175;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left:15rpx;
+}
+.duty-table{
+  width:100%;
+}
+
+.duty-table-tr{
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #6666664f;
+}
+
+.duty-table-td{
+  width:100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.duty-time{
+  width:144rpx;
+  text-align: center;
+  flex-grow: 0;
+  border-right: 1px solid #6666664f;
+}
+
+
+.duty-content{
+  flex-grow: 1;
+}
+
+.duty-table-cell{
+  text-align: left;
+  line-height: 48rpx;
+  display: flex;
+  flex-direction: row;
+
+}
+.course-box{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    position: relative;
+}
+.courseInfo{
+  flex-grow: 1;
+  padding: 20rpx;
+  text-align: center;
+  background: #fff;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.dutyer{
+  width: 96rpx;
+  padding: 20rpx;
+  border-left: 1px solid #6666664f;
+}
+
+.duty-header{
+  background-color: #ffffff;
+  border-top: 1px solid #6666664f;
+  font-weight: bold;
+}
+
+.morning{
+    background-color: #f7f7f7;
+
+}
+.afternoon{
+  background-color: #ffffff;
+}
+.evening{
+  background-color: #f7f7f7;
+}
+
+.van-tabs__scroll{
+  width:100%;
+}
+
+.box-main-left{
+    width: 64rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+
+.exam_title{
+    display:flex; 
+    flex-direction: row;
+  }
+
+  .exam_detail{
+    font-weight: normal;
+    display: flex;
+    flex-direction: column;
+  }
+.exam_detail_tr{
+    text-align: left;
+}
+  .fontBold{
+      font-weight: bold;
+  }

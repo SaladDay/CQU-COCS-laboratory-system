@@ -1,0 +1,47 @@
+<view class="form-main">
+    <view class="form-main-in">
+        <van-cell-group>
+            <block wx:if="{{type === 3}}">
+                <van-field model:value="{{ courseName }}" input-align="right" required clearable label="课程名称" placeholder="课程名称" />
+                <van-field model:value="{{ instructorName }}" input-align="right" required clearable label="上课老师" placeholder="上课老师名称" />
+                <van-field model:value="{{ selectedStuNum }}" type="number" input-align="right" required clearable label="上课人数" placeholder="输入上课人数" />
+                <van-cell center title="上课周次">
+                    <van-stepper id="weekNum" value="{{ weekNum }}" min="{{1}}" max="{{maxWeek}}" bind:change="onStepperChange" />
+                </van-cell>
+                <van-cell center title="星期几">
+                    <van-stepper id="weekDay" value="{{ weekDay }}" min="{{1}}" max="{{7}}" bind:change="onStepperChange" />
+                </van-cell>
+                <van-cell center title="开始节次">
+                    <van-stepper id="startPeriod" value="{{ startPeriod }}" min="{{minPeriod}}" max="{{maxPeriod}}" bind:change="onStepperChange" />
+                </van-cell>
+                <van-cell center title="结束节次">
+                    <van-stepper id="endPeriod" value="{{ endPeriod }}" min="{{minPeriod}}" max="{{maxPeriod}}" bind:change="onStepperChange" />
+                </van-cell>
+            </block>
+            <block wx:else>
+                <van-cell title="课程名称" value="{{ courseName }}" />
+                <van-cell title="上课老师" value="{{ instructorName }}" />
+                <van-cell title="上课人数" value="{{ selectedStuNum }}" />
+                <van-cell title="上课日期" value="第{{ weekNum }}周星期{{ weekDay }}" />
+                <van-cell title="上课节次" value="{{ startPeriod }}-{{ endPeriod }}" />
+            </block>
+            <van-cell required title="上课教室" value="{{ roomList[roomIndex] }}" is-link data-id="room" bind:click="onPickerDisplay" />
+            <van-popup show="{{ roomShow }}" position="bottom" bind:before-enter="requestRoomsByCourse">
+                <van-picker columns="{{ roomList }}" loading="{{loading}}" show-toolbar title="教室" data-id="room" bind:cancel="onPickerCancel" bind:confirm="onPickerConfirm" />
+            </van-popup>
+            <block wx:if="{{schedulerTotal > 0}}">
+                <van-cell required title="值班员" value="{{ userList[dutyerIndex].text }}" is-link data-id="dutyer" bind:click="onPickerDisplay" />
+                <van-popup show="{{ dutyerShow }}" position="bottom">
+                    <van-picker columns="{{ userList }}" show-toolbar title="值班人员" data-id="dutyer" bind:cancel="onPickerCancel" bind:confirm="onPickerConfirm" />
+                </van-popup>
+            </block>
+        </van-cell-group>
+    </view>
+</view>
+<view class="form-submit">
+    <view class="form-submit-in">
+        <van-button type="primary" block color="#6e4175" bind:click="onSubmit">提交</van-button>
+    </view>
+</view>
+
+<van-dialog id="van-dialog" confirm-button-color="#6e4175" />

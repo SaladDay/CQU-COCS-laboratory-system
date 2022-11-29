@@ -1,0 +1,117 @@
+<view class="container">
+    <view class="opt-panel">
+        <view class="header">
+            <view class="title">
+                <view class="title-left">
+                    <view class="left-icon"></view>
+                    <view class="title_left">课表查询</view>
+                </view>
+                <view class="title-right">
+                    <view>当前周次：第{{curWeek}}周</view>
+                </view>
+            </view>
+            <van-cell border="{{false}}" center title="查询周次">
+                <van-stepper value="{{ selectWeek }}" min="{{1}}" max="{{maxWeek}}" bind:change="onWeekChange" />
+            </van-cell>
+        </view>
+    </view>
+    <block wx:if="{{courseList.length > 0}}">
+        <van-tabs color="#6e4175" swipeable animated swipe-threshold="7" active="{{ courseTabActive }}">
+            <block wx:for="{{courseList}}" wx:for-index="idx">
+                <van-tab title="{{courseList[idx].key}}">
+                    <view class="modal">
+                        <view class="header">
+                            <view class="title">
+                                <view class="title-left">
+                                    <view class="left-icon"></view>
+                                    <view class="title_left">{{courseList[idx].key}}</view>
+                                </view>
+                            </view>
+                        </view>
+
+                        <view class="wrap">
+                            <block wx:if="{{courseList[idx]['morningCourses'].length > 0}}">
+                                <view class="top-box" wx:for="{{courseList[idx]['morningCourses']}}" wx:for-index="i">
+                                    <block wx:if="{{i > 0}}">
+                                    <view class="fenger-top">
+                                                <p></p>
+                                            </view>
+                                        </block>
+                                    <view class="box-main">
+                                        <view class="box-main-left">
+                                            <view class="box-title-icon">
+                                                <image src="../images/date.svg" />
+                                            </view>
+                                        </view>
+                                        <view class="box-main-right">
+                                            <view class="box-title">
+                                                <view class="box-title-content">
+                                                    <view>{{courseList[idx]['morningCourses'][i].key}}</view>
+                                                </view>
+                                            </view>
+                                            <view class="box-content">
+                                                <block wx:for="{{courseList[idx]['morningCourses'][i]['courses']}}" wx:for-index="coursesIndex">
+                                                    <view class="courseInfo">
+                                                        <view class="courseInfo-tr fontBold courseInfo-title">
+                                                            <view>
+                                                                {{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].roomName}}
+                                                                [{{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].startPeriod}}-
+                                                                {{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].endPeriod}}]
+                                                                [人数：{{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].selectedStuNum}}]
+                                                            </view>
+                                                        </view>
+                                                        <view class="courseInfo-tr">
+                                                            {{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].courseName}}
+                                                        </view>
+                                                        <view class="courseInfo-tr">
+                                                            {{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].instructorName}}
+                                                        </view>
+                                                        <block wx:if="{{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].type === 1}}">
+                                                            <view class="courseInfo-tr red ">
+                                                                备注:临时活动
+                                                            </view>
+                                                        </block>
+                                                        <block wx:if="{{courseList[idx]['morningCourses'][i]['courses'][coursesIndex].type === 2}}">
+                                                            <view class="courseInfo-tr red ">
+                                                                备注:考试
+                                                            </view>
+                                                        </block>
+                                                    </view>
+                                                </block>
+                                            </view>
+                                        </view>
+                                    </view>
+                                    <block wx:if="{{i < courseList[idx]['morningCourses'].length -1}}">
+                                        <view class="fenger-bottom">
+                                            <p></p>
+                                        </view>
+                                    </block>
+                                </view>
+                                
+                            </block>
+                            <block wx:else>
+                                <view class="top-box">
+                                    <view class="box-main">
+                                        系统中暂无第{{selectWeek}}周课表数据，请登录教务系统获取！
+                                    </view>
+                                </view>
+                            </block>
+                        </view>
+                    </view>
+                </van-tab>
+            </block>
+        </van-tabs>
+    </block>
+    <block wx:else>
+        <view class="modal">
+            <view class="header">
+                <view class="title">
+                    <view class="title-left">
+                        <view class="left-icon"></view>
+                        <view class="title_left">暂无第{{selectWeek}}周课表数据，请登录教务系统更新！</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </block>
+</view>

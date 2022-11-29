@@ -1,0 +1,18 @@
+<view class="form-main">
+  <view class="form-main-in">
+    <van-cell-group>
+      <van-field value="{{ name }}" required clearable label="学期名称" placeholder="请输入学期名称" input-align="right" bind:change="onNameChange"/>
+      <van-cell title="开始时间" value="{{ start }}" bind:click="onStartDisplay" is-link />
+      <van-calendar id="start_calendar" min-date="{{ minDate }}" show="{{ startShow }}" round="false" position="right" bind:close="onStartClose" bind:confirm="onStartConfirm" color="#6e4175" />
+
+      <van-cell title="结束时间" value="{{ end }}" bind:click="onEndDisplay" is-link />
+      <van-calendar id="end_calendar" min-date="{{ minDate }}" show="{{ endShow }}" round="false" position="right" bind:close="onEndClose" bind:confirm="onEndConfirm" color="#6e4175" />
+    </van-cell-group>
+  </view>
+</view>
+
+<view class="form-submit">
+  <view class="form-submit-in">
+    <van-button type="primary" block color="#6e4175" bind:click="onSubmit">提交</van-button>
+  </view>
+</view>

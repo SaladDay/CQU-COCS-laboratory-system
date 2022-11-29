@@ -1,0 +1,29 @@
+<view class="form-main">
+    <view class="form-main-in">
+        <van-cell-group>
+            <van-cell title="姓名" value="{{ name }}" />
+            <van-cell title="学院" value="{{ department }}" />
+            <van-cell title="工号" value="{{ userId }}" />
+            <van-cell title="性别" value="{{ sex }}" />
+            <van-cell title="人员类型" value="{{ userTypeList[userType] }}" />
+            <block wx:if="{{userType==0}}">
+            <block wx:if="{{manager}}">
+                <van-cell title="是否为管理员" value="{{ manager?'是':'否' }}" />
+            </block>
+            <block wx:if="{{maintain}}">
+                <van-cell title="是否维护" value="{{ maintain?'是':'否' }}" />
+            </block>
+            <block wx:if="{{scheduler}}">
+                <van-cell title="是否排班" value="{{ scheduler?'是':'否' }}" />
+            </block>
+        </block>
+            <van-field value="{{ tel }}" clearable label="手机号" placeholder="请输入手机号" type="number" input-align="right" bind:change="onTelChange" />
+
+        </van-cell-group>
+    </view>
+</view>
+<view class="form-submit">
+    <view class="form-submit-in">
+        <van-button type="primary" block color="#6e4175" bind:click="onSubmit">提交</van-button>
+    </view>
+</view>

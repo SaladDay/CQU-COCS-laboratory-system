@@ -1,0 +1,58 @@
+<view class="notice-container">
+	<van-notice-bar left-icon="https://img.yzcdn.cn/public_files/2017/8/10/6af5b7168eed548100d9041f07b7c616.png"
+		text="请同学们如实填写信息,方便维修人员对应进行维修,谢谢大家。" speed="40" />
+</view>
+
+<!-- 申报表 -->
+<view class='declare-input'>
+    <!-- 用户头像 -->
+    <view class="userLogo">
+        <open-data type="userAvatarUrl"></open-data>
+    </view>
+    
+    <!-- 故障机器 -->
+    <view class="decare-input-item" >
+		<text class="itemtext2">故障机器(必填)：</text>
+        <!-- 机器房间 -->
+		<picker bindchange="selectRoom" range="{{pickerListRoom}}" range-key='name' value="{{roomIndex}}">
+			<view class="picker">
+				<input class="picker-input" style="font-size: 35rpx;" placeholder="请选择机房" disabled="true"  value="{{pickerListRoom[roomIndex].name}}"></input>
+			</view>
+		</picker>
+        <!-- <van-picker columns="{{ pickerListRoom }}" bind:change="selectRoom" /> -->
+	<text class="text-dorm">机房</text>
+    </view>
+
+
+    <view class="line"></view>
+
+
+        <view class="decare-input-item" >
+        <!-- 机器号 -->
+            <picker bindchange="selectEquip" range="{{pickerListEquip}}" range-key='equipNameId' value="{{equipIndex}}">
+                <view class="picker">
+                    <input class="picker-input" style="font-size: 35rpx;" placeholder="请选择机器" disabled="true"  value="{{pickerListEquip[equipIndex].equipNameId}}"></input>
+                </view>
+            </picker>
+	<text class="text-dorm">号机器</text>
+	</view>
+    <view class="line"></view>
+    <!-- 申报描述 -->
+    <view class="decare-input-item">
+		<text class="itemtext2">申报描述(必填)：</text>
+		<textarea class="textarea" placeholder="请说明要维修的情况、出现状况，如何导致等.." placeholder-style="color:#ccc;font-size:14px;" type="string"
+			maxlength="50" bindinput="setDesc"></textarea>
+	</view>
+    <!-- 图片上传 -->
+    <view class="decare-input-item" style="display: flex;flex-direction: column;">
+        <text class="itemtext2">请提交相应图片(最多三张)：</text>
+        <van-uploader file-list="{{fileList}}" deletable="{{ true }}" 
+	    bind:after-read="afterRead" 
+	    bind:delete="deleteImg"/> 
+    </view>
+
+    <!-- 上传按钮 -->
+    <view class="apply-btn">
+			<button type="primary" bindtap="bindSubmitData">提交</button>
+	</view>
+</view>
