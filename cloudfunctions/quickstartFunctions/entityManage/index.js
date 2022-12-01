@@ -108,6 +108,9 @@ exports.main = async (event, context) => {
             var morning = event.morning;
             result = await findSchedulerOfSomeMorning(semesterId, weekNum, weekDay, morning);
 
+        } else if (opt === 'updateEquipRepair'){
+            var updateData = event.updateData;
+            await updateEquipRepair(updateData);
         }
 
         return {
@@ -122,6 +125,36 @@ exports.main = async (event, context) => {
         };
     }
 };
+async function updateEquipRepair(updateData){
+    var key = updateData.equipRepairId;
+    var repairTime = updateData.repairTime;
+    var feedback = updateData.feedback;
+    db.collection('equipRepairs').where({_id:key}).update({
+        // data 传入需要局部更新的数据
+        data: {
+          state:1,
+          repairDate:repairTime,
+          feedback:feedback
+        },
+        success: function(res) {
+            console.log('数据已更新')
+            console.log(res.data)
+        }
+      })
+
+    //   db.collection('equipRepairs').where({_id:key}).add({
+    //     data:{
+    //         repairDate:repairTime,
+    //         feedback:feedback
+    //     },
+    //     success:(res)=>{
+    //         console.log('数据已添加')
+    //         console.log(res.data)
+    //     }
+    //   })
+
+}
+exports.updateEquipRepair = updateEquipRepair;
 
 async function findSchedulerOfSomeMorning(semesterId, weekNum, weekDay, morning) {
     const $ = db.command.aggregate

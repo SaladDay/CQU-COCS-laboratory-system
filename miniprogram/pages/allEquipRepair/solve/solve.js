@@ -1,19 +1,59 @@
 // pages/myEquipRepair/all/all.js
+const app = getApp();
+import {moment} from '../../../utils/moment';
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        tabList: [{
-            name: '当前未处理',
-            status: '未处理'
-          }, {
-            name: '当前已处理',
-            status: '已处理'
-          }],
+        // tabList: [{
+        //     name: '当前未处理',
+        //     status: '未处理'
+        //   }, {
+        //     name: '当前已处理',
+        //     status: '已处理'
+        //   }],
           feedback:''
     },
+    onSubmit:function(){
+        
+        var repairTime = moment('YYYY-MM-DD hh:mm:ss');
+        var updateData = {
+            equipRepairId : this.data._id,
+            repairTime:repairTime,
+            feedback:this.data.feedback
+        }
+        var data = {
+            type: 'equipRepairManage',
+            opt: 'updateEquipRepair',
+            updateData:updateData
+        }
+        app.requestCloud(data).then(res=>{
+            console.log(res)
+            if(res.errMsg==='cloud.callFunction:ok'){
+
+                wx.showToast({
+                  title: '提交成功',
+                  duration:2000
+                })
+                setTimeout(function(){
+                    wx.navigateTo({
+                        url:'/pages/index/index'
+                    })
+                },2000)
+            }else(
+                wx.showToast({
+                    title: '提交失败,请重试',
+                    duration:2000
+                  })
+                  
+            )
+
+        })
+
+    },
+
     onIsAddChange: function (e) {
         this.setData({
             isAdd: e.detail

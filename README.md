@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-# -
-基于微信小程序设计的重庆大学计算机实验室管理系统
-=======
-
 利用云开发技术
 
 # 云开发 quickstart
@@ -17,4 +12,3 @@
 
 - [云开发文档](https://developers.weixin.qq.com/miniprogram/dev/wxcloud/basis/getting-started.html)
 
->>>>>>> fab30d7 (Initial Commit)
