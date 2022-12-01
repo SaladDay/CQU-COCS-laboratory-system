@@ -9,6 +9,8 @@
       "van-divider": "@vant/weapp/divider/index",
       "van-tabbar": "@vant/weapp/tabbar/index",
       "van-tabbar-item": "@vant/weapp/tabbar-item/index",
-      "van-image": "@vant/weapp/image/index"
+      "van-image": "@vant/weapp/image/index",
+      "van-tab": "@vant/weapp/tab/index",
+      "van-tabs": "@vant/weapp/tabs/index"
     }
   }

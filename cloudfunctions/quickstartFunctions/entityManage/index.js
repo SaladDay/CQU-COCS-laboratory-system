@@ -33,7 +33,8 @@ exports.main = async (event, context) => {
             result =await requestByEquipNameId(keyword)
 
         }else if(opt === 'findAllEquipRepair'){
-            result = await findAllEquipRepair();
+            const state = event.state
+            result = await findAllEquipRepair(state);
             result.data = result.list;
         }
         else if (opt === 'findAllEquip') {
@@ -521,7 +522,7 @@ async function findAllEquipRepairByUserId(userId){
 }
 exports.findAllEquipRepairByUserId = findAllEquipRepairByUserId;
 
-async function findAllEquipRepair(){
+async function findAllEquipRepair(state){
     const MAX_LIMIT = 100
     // 先取出集合记录总数
     const countResult = await db.collection('equipRepairs').count()
@@ -533,6 +534,9 @@ async function findAllEquipRepair(){
 
     for (let i = 0; i < batchTimes; i++) {
         const promise = db.collection('equipRepairs').aggregate().skip(i*MAX_LIMIT).limit(MAX_LIMIT)
+        .match({
+            state:state
+        })
         .sort({
             creatDate:-1
         }).end()

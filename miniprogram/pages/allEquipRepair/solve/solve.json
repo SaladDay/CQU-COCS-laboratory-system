@@ -6,6 +6,7 @@
         "van-calendar": "@vant/weapp/calendar/index",
         "van-button": "@vant/weapp/button/index",
         "van-switch": "@vant/weapp/switch/index"
+        
     },
     "navigationBarTitleText": "处理订单(管理员)"
 }

@@ -6,9 +6,17 @@ Page({
      * 页面的初始数据
      */
     data: {
-        userPermisstion:{}
+        userPermisstion:{},
+        active:0,
+        
         
 
+    },
+    onChange:function(e){
+        this.setData({
+            active:e.detail.index
+        })
+        this.refresh();
     },
     toSolve:function(e){
         var id= e.currentTarget.dataset.id;
@@ -34,7 +42,7 @@ Page({
         var id= e.currentTarget.dataset.id;
         var data = this.data.equipRepairList[id];
         wx.navigateTo({
-            url: '../myEquipRepair/all/all?data='+JSON.stringify(data),
+            url: '../allEquipRepair/all/all?data='+JSON.stringify(data),
         })
     },
 
@@ -119,6 +127,7 @@ Page({
         var data  =  {
             type: 'equipRepairManager',
             opt: 'findAllEquipRepair',
+            state:this.data.active
           }
         var resp = await app.requestCloud(data);
         data = resp.result.data;
@@ -140,10 +149,11 @@ Page({
             var equipRepairDescription = data[i].content;
             var creatDate = data[i].creatDate;
             var fileList = data[i].fileList;
-            var repairTime = data[i].repairTime === undefined?'暂无':data[i].repairTime;
+            var repairDate = data[i].repairDate === undefined?'暂无':data[i].repairDate;
+            var feedback = data[i].feedback;
             list_more_sign.push(false)
             equipRepairList.push({
-                id,_id,equipId,equipRoom,equipRoomManagerName,equipRepairDescription,creatDate,repairTime,fileList,equipContent,state
+                id,_id,equipId,equipRoom,equipRoomManagerName,equipRepairDescription,creatDate,repairDate,fileList,equipContent,state,feedback
             })
 
         }

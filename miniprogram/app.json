@@ -41,7 +41,8 @@
         "pages/myEquipRepair/myEquipRepair",
         "pages/allEquipRepair/allEquipRepair",
         "pages/myEquipRepair/all/all",
-        "pages/allEquipRepair/solve/solve"
+        "pages/allEquipRepair/solve/solve",
+        "pages/allEquipRepair/all/all"
         
     ],
     "window": {

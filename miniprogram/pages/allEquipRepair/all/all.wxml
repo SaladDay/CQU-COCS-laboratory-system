@@ -1,0 +1,83 @@
+<view class="modal">
+
+    <view class="header">
+        <view class="title">
+            <view class="title-left">
+                <view class="left-icon"></view>
+                <view class="title_left">保修单详情</view>
+            </view>
+            <view class="title-right">
+                
+                <view wx:if="{{state === 0}}" class="title_right" style="color: #da6666;border: 8rpx solid;border-radius: 34rpx;padding:10rpx;font-size: 30rpx;">正在维修中</view>
+                <view wx:else class="title_right"  style="color: #da6666;border: 8rpx solid;border-radius: 34rpx;padding:10rpx;font-size: 30rpx;">维修完成</view>
+            </view>
+        </view>
+    </view>
+
+    <view class="wrap">
+        <view class="middle-box">
+                <view class="box-main">
+                    <view class="box-main-left">
+                        <view class="box-title-icon">
+                            <image src="../../images/date.svg" />
+                        </view>
+                    </view>
+
+                    <view class="box-main-right">
+                        <view class="box-title">
+                            <view class="box-title-content">
+                                <view>{{'设备'+equipId}}</view>
+                            </view>
+
+                        </view>
+                        <view class="box-content" style="display:flex;flex-direction: column;">
+                            <view class="box-content-tr all">设备房间：{{equipRoom}}</view>
+                            
+                            <view class="box-content-tr all">设备管理员: {{equipRoomManagerName}}</view>
+                            <view class="box-content-tr all">报修时间: {{creatDate}}</view>
+                            
+                            <view class="box-content-tr all">报修单号: {{_id}}</view>
+                            
+                            <view class="box-content-tr all">报修内容: {{equipContent}}</view>
+                            <!-- <view wx:for="{{fileList}}" wx:key="*this" wx:for-index="i">
+                                <van-image width="100" height="100" src="{{fileList[i].url}}" />
+                            </view> -->
+                            <view wx:if="{{fileList.length===0}}" class="box-content-tr all">报修图片: 暂无</view>
+                            <block wx:else>
+                            <view class="box-content-tr all">报修图片: </view>
+                            
+                                <view  class="picture-container">
+                                    <block wx:for="{{fileList}}"  wx:for-index='idx' wx:key="*this">
+                                        <image class="previewimg" src="{{fileList[idx].url}}" data-src="{{fileList[idx].url}}" data-index="{{idx}}" bindtap="previewImage"></image>
+                                    </block>
+                                </view>
+                            </block>
+                            <block wx:if="{{state==1}}">
+                                <view class="box-content-tr all">检修时间: {{repairDate}}</view>
+                                <view class="box-content-tr all">反馈内容: {{feedback}}</view>
+                            
+                            </block>
+
+                            
+                        </view>
+                        
+                    </view>
+                </view>
+
+
+
+
+
+            <view class="fenger-bottom">
+                <p></p>
+            </view>
+        </view>
+
+    
+
+    </view>
+
+
+
+
+</view>

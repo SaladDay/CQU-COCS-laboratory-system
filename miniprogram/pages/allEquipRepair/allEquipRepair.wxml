@@ -1,17 +1,21 @@
 <view class="header-box" wx:if="{{equipRepairList.length===0}}">
-
-<view class="warring_top">
-<image src="/pages/images/warringico.png" class="warringico"></image>
-<view class="warring_text">
-    当前暂无保修单数据
+    <view class="warring_top">
+        <image src="/pages/images/warringico.png" class="warringico"></image>
+            <view class="warring_text">
+                当前暂无保修单数据
+            </view>
+        </view>
+    <button class="warring_btn" bindtap="escUp">确定</button>
 </view>
 
-</view>
-<button class="warring_btn" bindtap="escUp">确定</button>
-</view>
 
-<view wx:else class="modal">
-
+<block wx:else >
+  <van-tabs type='line' color='#8d6094' active="{{ active }}" bind:change="onChange">
+  <van-tab title="未完成工单"></van-tab>
+  <van-tab title="已完成工单"></van-tab>
+</van-tabs>
+<view  class="modal">
+    
 <view class="header">
 <view class="title">
     <view class="title-left">
@@ -92,3 +96,4 @@
 </view>
 
 </view>
+</block>
