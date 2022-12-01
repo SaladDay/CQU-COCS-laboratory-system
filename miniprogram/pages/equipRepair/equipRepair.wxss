@@ -25,7 +25,7 @@
     width: 150rpx;
     height: 150rpx;
     margin:-50px auto;
-    border: 3px solid orange;
+    border: 3px solid #6e4175;
     border-radius: 50%;
     overflow: hidden;
     margin-bottom: 30rpx;
@@ -75,11 +75,12 @@
     border: 2rpx solid rgb(196, 196, 196);
   }
   .apply-btn{
+
     margin: 20rpx 0rpx 20rpx;
   }
   .apply-btn button{
     border-radius: 40rpx;
-    background:linear-gradient(to right,rgb(1, 156, 218),rgb(3, 94, 197));
+    background:#6e4175;
     width: 90%;
   }
   
