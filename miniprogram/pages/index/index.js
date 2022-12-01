@@ -280,18 +280,14 @@ Page({
                 text:'我的报修',
                 url:'../myEquipRepair/myEquipRepair',
                 icon: '/pages/images/user.svg'
-            },{
-                text:'所有报修',
-                url:'../allEquipRepair/allEquipRepair',
-                icon: '/pages/images/user.svg'
             });
         }
-        this
+
         var gridListLen = gridList.length;
         var grid_column = 3;
         if (gridListLen < 3) {
             grid_column = 0;
-        } else if (gridListLen < 6) {
+        } else if (gridListLen < 5) {
             grid_column = gridListLen;
         } else {
             grid_column = 3;
