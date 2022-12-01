@@ -231,28 +231,28 @@ Page({
                 }, {
                     text: '教室管理',
                     url: '../roomManage/index',
-                    icon: '/pages/images/user.svg'
+                    icon: '/pages/images/roomManage.svg'
                 },{
                     text:'设备类型管理',
                     url:'../equipTypeManage/equipTypeManage',
-                    icon: '/pages/images/user.svg'
+                    icon: '/pages/images/equipManage.svg'
 
                 },{
                     text:'设备管理',
                     url:'../equipManage/equipManage',
-                    icon: '/pages/images/user.svg'
+                    icon: '/pages/images/equipManage.svg'
                 },{
                     text:'设备报修',
                     url:'../equipRepair/equipRepair',
-                    icon: '/pages/images/user.svg'
+                    icon: '/pages/images/equipRepair.svg'
                 },{
                     text:'我的报修',
                     url:'../myEquipRepair/myEquipRepair',
-                    icon: '/pages/images/user.svg'
+                    icon: '/pages/images/allEquipRepair.svg'
                 },{
                     text:'所有报修',
                     url:'../allEquipRepair/allEquipRepair',
-                    icon: '/pages/images/user.svg'
+                    icon: '/pages/images/allEquipRepair.svg'
                 }) 
             }
 
@@ -275,11 +275,11 @@ Page({
             },{
                 text:'设备报修',
                 url:'../equipRepair/equipRepair',
-                icon: '/pages/images/user.svg'
+                icon: '/pages/images/equipRepair.svg'
             },{
                 text:'我的报修',
                 url:'../myEquipRepair/myEquipRepair',
-                icon: '/pages/images/user.svg'
+                icon: '/pages/images/allEquipRepair.svg'
             });
         }
 
