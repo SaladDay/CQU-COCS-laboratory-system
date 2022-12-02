@@ -34,6 +34,22 @@ Page({
 
 
         }
+        var roomManager = this.data.pickerListRoom[this.data.roomIndex].manager.name
+        var subMsg={
+            'thing1':{
+                'value':this.data.userInfo.name
+            },
+            'thing3':{
+                'value':this.data.pickerListEquip[this.data.equipIndex].equipNameId
+            },
+            'thing7':{
+                'value':roomManager
+            },
+            'phrase9':{
+                'value':'加急维修中'
+            }
+
+        }
         wx.requestSubscribeMessage({
           tmplIds: ['Drfsf5gkl1z44LFmseopAbzksiGBdLiGeJVfs9Ls3DE'],
           success:(res)=>{
@@ -57,6 +73,20 @@ Page({
                             content:'提交成功',
                             showCancel:false,
                             success:(res)=>{
+                               app.requestCloud({
+                                   type:'subscribe',
+                                   opt:'subscribe',
+                                   entity:subMsg
+                               }).then(res=>{
+                                    console.log('推送成功')
+                                    console.log(res)
+                                }).catch(res=>{
+                                    console.log('推送失败')
+                                    console.log(res)
+                                })
+
+
+
                                 wx.reLaunch({
                                     url: '../index/index?id=success',
                                   })
@@ -111,6 +141,7 @@ Page({
         })
         wx.showLoading({
           title: '加载中',
+          mask:true
         })
         var _id = this.data.pickerListRoom[this.data.roomIndex]._id;
         var  data = {
@@ -228,6 +259,7 @@ Page({
   refresh: async function(){
     wx.showLoading({
     title: '加载中',
+    mask:true
     })
     var data  =  {
         type: 'roomManage',

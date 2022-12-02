@@ -112,6 +112,9 @@ exports.main = async (event, context) => {
         } else if (opt === 'updateEquipRepair'){
             var updateData = event.updateData;
             await updateEquipRepair(updateData);
+        }else if (opt === 'subscribe'){
+            var subMsg = event.entity
+            await subscribe(subMsg);
         }
 
         return {
@@ -126,6 +129,32 @@ exports.main = async (event, context) => {
         };
     }
 };
+async function subscribe(subMsg){
+    console.log('正在执行sub函数')
+    console.log(subMsg)
+    const openId = cloud.getWXContext().OPENID;
+    console.log(openId)
+    try{
+        const sendmsg = await cloud.openapi.subscribeMessage.send({
+            'touser':openId,
+            'templateId':'Drfsf5gkl1z44LFmseopAbzksiGBdLiGeJVfs9Ls3DE',
+            'page':"pages/index/index",
+            'data':subMsg,
+            'miniprogramState':'developer'
+
+        })
+        console.log('订阅消息推送成功')
+        return sendmsg.errCode
+    }
+    catch(e){
+        console.log('订阅消息推送失败')
+        console.log(e)
+        return e;
+    }
+
+
+}
+exports.subscribe = subscribe;
 async function updateEquipRepair(updateData){
     var key = updateData.equipRepairId;
     var repairTime = updateData.repairTime;
