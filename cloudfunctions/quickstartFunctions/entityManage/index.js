@@ -664,7 +664,11 @@ async function findAllRoom() {
     // 承载所有读操作的 promise 的数组
     const tasks = []
     for (let i = 0; i < batchTimes; i++) {
-        const promise = db.collection('rooms').aggregate().skip(i*MAX_LIMIT).limit(MAX_LIMIT).lookup({
+        const promise = db.collection('rooms').aggregate().skip(i*MAX_LIMIT).limit(MAX_LIMIT)
+            .sort({
+                name:1
+            })
+            .lookup({
                 from: 'users',
                 localField: 'managerId',
                 foreignField: '_id',
@@ -765,7 +769,7 @@ async function searchEquipByRooom(keyword) {
     let where ={
         roomId:keyword
     }
-    const resp = await db.collection('equips').aggregate().match(where).end()
+    const resp = await db.collection('equips').aggregate().sort({equipNameId:1}).match(where).end()
 
     console.log(resp)
     var result={}
