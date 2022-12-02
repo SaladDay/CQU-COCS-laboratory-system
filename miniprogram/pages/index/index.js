@@ -22,6 +22,7 @@ Page({
             3: "晚上"
         },
         gridList: [],
+        
     },
     
     onDutyChange(event) {
@@ -138,6 +139,7 @@ Page({
             await app.requestCurrentSemester();
             console.log("index.js onload 结束请求学期")
         }
+        console.log('userInfo为')
         console.log(app.globalData.userInfo)
         if(!app.globalData.userInfo){
             console.log("index.js onload 请求当前用户")
@@ -250,7 +252,7 @@ Page({
                     url:'../myEquipRepair/myEquipRepair',
                     icon: '/pages/images/allEquipRepair.svg'
                 },{
-                    text:'所有报修',
+                    text:'报修管理',
                     url:'../allEquipRepair/allEquipRepair',
                     icon: '/pages/images/allEquipRepair.svg'
                 }) 

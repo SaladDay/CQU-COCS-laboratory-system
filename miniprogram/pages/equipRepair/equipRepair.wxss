@@ -71,7 +71,9 @@
     font-size: 28rpx;
   }
   .textarea{
-    width: 100%;
+    width: 96%;
+    margin-left: 0%;
+    margin-right: 4%;
     border: 2rpx solid rgb(196, 196, 196);
   }
   .apply-btn{
@@ -83,7 +85,15 @@
     background:#6e4175;
     width: 90%;
   }
-  
+  .currentWordNumber{
+    font-size: 28rpx;
+    color: gray;
+    position: absolute;
+    right: 35rpx;
+    bottom: 10rpx;
+  }
+
+
   
   
   

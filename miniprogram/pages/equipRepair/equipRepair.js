@@ -10,15 +10,18 @@ Page({
         userInfo:app.globalData.userInfo,
         roomIndex:undefined,
         fileList:[],
-        pickerListRoom:[{id:0,value:'222'},{id:1,value:'124'},{id:2,value:'11111'}],
-        pickerListEquip:[],
-        description:''
+        pickerListRoom:[],
+        pickerListEquip:[{equipNameId:'请先选择机房和设备类型'}],
+        pickerListEquipType:[],
+        description:'',
+        max:200,
+        currentWordNumber:0
 
     },
     
     bindSubmitData:function(e){
         var equipInfo = this.data.pickerListEquip[this.data.equipIndex];
-        var equipRoomInfo = this.data.pickerListRoom[this.data.equipIndex];
+        var equipRoomInfo = this.data.pickerListRoom[this.data.roomIndex];
         var fileList = this.data.fileList.map((res)=>{return {url:res.url}});
         var creatTime = moment('YYYY-MM-DD hh:mm:ss');
         console.log('fileList:::')
@@ -132,43 +135,68 @@ Page({
 
         var description = e.detail.value
         this.data.description = description;
+        this.setData({
+            currentWordNumber:description.length
+        })
         console.log(this.data.description)
     },
+    selectEquipType:function(e){
+        console.log(e)
+
+        if(this.data.roomIndex===undefined){
+            wx.showToast({
+              title: '请先选择机房',
+              icon:'error'
+            })
+        }else{
+            this.setData({
+                equipTypeIndex:e.detail.value
+            })
+
+            wx.showLoading({
+                title: '加载中',
+                mask:true
+              })
+              var roomId = this.data.pickerListRoom[this.data.roomIndex]._id;
+              var equipTypeId = this.data.pickerListEquipType[this.data.equipTypeIndex]._id
+              
+              var  data = {
+                  type: 'equipRepair',
+                  opt: 'searchEquipByRoomAndEquipType',
+                  entity:{
+                      roomId:roomId,
+                      equipTypeId:equipTypeId
+                  }
+                }
+              app.requestCloud(data).then((res)=>{
+                  console.log(res)
+                  var pickerListEquip = res.result.data;
+                  if(pickerListEquip.length != 0){
+                      this.setData({
+                          pickerListEquip:pickerListEquip
+                      })
+                  }else{
+                      var emptyObject={
+                          equipNameId:'本房间暂无机器'
+                      }
+                      pickerListEquip.push(emptyObject)
+                      this.setData({
+                          pickerListEquip:pickerListEquip
+                      })
+                  }
+                  wx.hideLoading({
+                    success: (res) => {},
+                  })
+              })
+        }
+    },
+  
     selectRoom:function(e){
         console.log('用户点击确认')
         this.setData({
             roomIndex:e.detail.value
         })
-        wx.showLoading({
-          title: '加载中',
-          mask:true
-        })
-        var _id = this.data.pickerListRoom[this.data.roomIndex]._id;
-        var  data = {
-            type: 'equipRepair',
-            opt: 'searchEquipByRooom',
-            _id: _id
-          }
-        app.requestCloud(data).then((res)=>{
-            console.log(res)
-            var pickerListEquip = res.result.data;
-            if(pickerListEquip.length != 0){
-                this.setData({
-                    pickerListEquip:pickerListEquip
-                })
-            }else{
-                var emptyObject={
-                    equipNameId:'本房间暂无机器'
-                }
-                pickerListEquip.push(emptyObject)
-                this.setData({
-                    pickerListEquip:pickerListEquip
-                })
-            }
-            wx.hideLoading({
-              success: (res) => {},
-            })
-        })
+       
         
       
         // console.log(resp)
@@ -179,7 +207,6 @@ Page({
             equipIndex:e.detail.value
         })
     },
-    
   
     afterRead:function( event) {
     const file = event.detail.file 
@@ -281,7 +308,31 @@ Page({
           }
     }
 
+
+    var sendData  =  {
+        type: 'equipTypeManage',
+        opt: 'findAllEquipType'
+      }
+    var resp = await app.requestCloud(sendData);
+    var equipTypeData = resp.result.data;
+    // console.log(data)
+    if(!equipTypeData){
+        return;
+    }
+    var len = equipTypeData.length;
+
+    for(var i = 0 ; i < len; i++){
+        equipTypeData[i].id = i;
+    }
+    
+
+
+
+
+ 
+
     this.setData({
+        pickerListEquipType:equipTypeData,        
         pickerListRoom:data,
     });
     wx.hideLoading({

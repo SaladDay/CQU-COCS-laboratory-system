@@ -1,5 +1,5 @@
 {
-    "navigationBarTitleText": "所有报修",
+    "navigationBarTitleText": "报修管理",
     "usingComponents": {
       "van-icon": "@vant/weapp/icon/index",
       "van-cell": "@vant/weapp/cell/index",

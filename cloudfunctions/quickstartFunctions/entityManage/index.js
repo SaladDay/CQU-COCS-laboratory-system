@@ -46,9 +46,9 @@ exports.main = async (event, context) => {
             result = await findAllEquipRepairByUserId(userId);
             result.data = result.list;
         }
-        else if(opt === 'searchEquipByRooom'){
-            var keyWord = event._id;
-            result = await searchEquipByRooom(keyWord);
+        else if(opt === 'searchEquipByRoomAndEquipType'){
+            var entity = event.entity;
+            result = await searchEquipByRoomAndEquipType(entity);
             
 
         }else if(opt === 'queryMax'){
@@ -334,12 +334,23 @@ async function queryMax(table,entity){
     // console.log('table的内容')
     // equipTypes
     // console.log('entity的内容')
+
+
     // {name: "000030"}
+    var name = entity.name;
+    var result = await db.collection(table).where({name:name}).get()
+    console.log("result：")
+    console.log(result)
+    if(result.data.length != 0){
+        return {
+            maxNum:'already exist'
+        }
+    }
     var result = await db.collection(table).aggregate().group({
         _id:'',//相当于全部分一组
         maxNum:$.max('$nameId')//输出这个组内max的最大值
     }).end()
-    console.log("result：")
+
     console.log(result.list[0].maxNum)
     return{
         list:result.list[0].maxNum,
@@ -765,9 +776,10 @@ async function findAllRoomByManagerId(managerId) {
 
 exports.findAllRoomByManagerId = findAllRoomByManagerId;
 
-async function searchEquipByRooom(keyword) {
+async function searchEquipByRoomAndEquipType(entity) {
     let where ={
-        roomId:keyword
+        roomId:entity.roomId,
+        equipTypeId:entity.equipTypeId
     }
     const resp = await db.collection('equips').aggregate().sort({equipNameId:1}).match(where).end()
 
@@ -779,7 +791,7 @@ async function searchEquipByRooom(keyword) {
 
 }
 
-exports.searchEquipByRooom = searchEquipByRooom;
+exports.searchEquipByRoomAndEquipType = searchEquipByRoomAndEquipType;
 
 async function requestByEquipNameId(keyword) {
     let where ={

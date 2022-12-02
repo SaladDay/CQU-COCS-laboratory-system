@@ -7,41 +7,61 @@
 <view class='declare-input'>
     <!-- 用户头像 -->
     <view class="userLogo">
-        <open-data type="userAvatarUrl"></open-data>
+        <image wx:if="{{userInfo.sex==0}}" style="width:155rpx;height:157rpx" src="../images/female.png"></image>
+        <image wx:else style="width:155rpx;height:157rpx" src="../images/male.png"></image>
     </view>
     
     <!-- 故障机器 -->
-    <view class="decare-input-item" >
-		<text class="itemtext2">故障机器(必填)：</text>
+    <view class="decare-input-item"  >
+		<text class="itemtext2">故障设备(必填)：</text>
         <!-- 机器房间 -->
+        <view class="decare-input-item" style="display: flex;flex-direction: row;align-items: center;">
 		<picker bindchange="selectRoom" range="{{pickerListRoom}}" range-key='name' value="{{roomIndex}}">
 			<view class="picker">
-				<input class="picker-input" style="font-size: 35rpx;" placeholder="请选择机房" disabled="true"  value="{{pickerListRoom[roomIndex].name}}"></input>
+				<input class="picker-input" style="font-size: 35rpx;width:250rpx" placeholder="请选择机房" disabled="true"  value="{{pickerListRoom[roomIndex].name}}"></input>
 			</view>
 		</picker>
         <!-- <van-picker columns="{{ pickerListRoom }}" bind:change="selectRoom" /> -->
-	<text class="text-dorm">机房</text>
+	<text class="text-dorm" style="font-size: 30rpx;">机房</text>
+    </view>
     </view>
 
 
     <view class="line"></view>
 
-
-        <view class="decare-input-item" >
-        <!-- 机器号 -->
-            <picker bindchange="selectEquip" range="{{pickerListEquip}}" range-key='equipNameId' value="{{equipIndex}}">
-                <view class="picker">
-                    <input class="picker-input" style="font-size: 35rpx;" placeholder="请选择机器" disabled="true"  value="{{pickerListEquip[equipIndex].equipNameId}}"></input>
-                </view>
-            </picker>
-	<text class="text-dorm">号机器</text>
+    <view class="decare-input-item" style="display: flex;flex-direction: row;align-items: center;" >
+    <!-- 机器类型 -->
+        <picker bindchange="selectEquipType" range="{{pickerListEquipType}}" range-key='name' value="{{equipTypeIndex}}">
+            <view class="picker">
+                <input class="picker-input"  style="font-size: 35rpx;width:300rpx" placeholder="请选择设备类型" disabled="true"  value="{{pickerListEquipType[equipTypeIndex].name}}"></input>
+            </view>
+        </picker>
 	</view>
     <view class="line"></view>
+
+
+
+    <view class="decare-input-item" style="display: flex;flex-direction: row;align-items: center;">
+    <!-- 机器号 -->
+        <picker bindchange="selectEquip" range="{{pickerListEquip}}" range-key='equipNameId' value="{{equipIndex}}">
+            <view class="picker">
+                <input class="picker-input" style="font-size: 35rpx;width:250rpx" placeholder="请选择设备编号" disabled="true"  value="{{pickerListEquip[equipIndex].equipNameId}}"></input>
+            </view>
+        </picker>
+    <text class="text-dorm" style="font-size: 30rpx;">号设备</text>
+	</view>
+    <view class="line"></view>
+
+   
+
+
     <!-- 申报描述 -->
     <view class="decare-input-item">
-		<text class="itemtext2">申报描述(必填)：</text>
-		<textarea class="textarea" placeholder="请说明要维修的情况、出现状况，如何导致等.." placeholder-style="color:#ccc;font-size:14px;" type="string"
-			maxlength="50" bindinput="setDesc"></textarea>
+		<text class="itemtext2" >报修描述(必填)：</text>
+		<textarea class="textarea" style="position: relative; " placeholder="请说明要维修的情况、出现状况，如何导致等.." placeholder-style="color:#ccc;font-size:14px;" type="string"
+			maxlength="200" bindinput="setDesc">
+            <text class="currentWordNumber">{{currentWordNumber}}/{{max}}</text>    
+        </textarea>
 	</view>
     <!-- 图片上传 -->
     <view class="decare-input-item" style="display: flex;flex-direction: column;">

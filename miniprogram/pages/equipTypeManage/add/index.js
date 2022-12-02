@@ -67,8 +67,9 @@ Page({
         })
         
         //查询此类型目前最大的数量
+        var name = this.data.name.replace(/\s*/g,"");
         var queryEntity = {
-            name:this.data.name
+            name:name
         }
         var queryData = {
             type: this.data.type,
@@ -77,12 +78,26 @@ Page({
         }
         var res = await app.requestCloud(queryData);
         console.log('查询函数返回结果')
+        console.log(res)
+        if(res.result.data === 'already exist'){
+            wx.hideLoading({
+              success: (res) => {
+                wx.showToast({
+                    title: '请勿重复添加',
+                    icon:'error'
+                  })
+              },
+            })
+            
+            
+            
+        }else{
         //当前设备编号
         var maxNameId = res.result.data;//是个string
         var newNameId = (Array(5).join('0')+(parseInt(maxNameId)+1)).slice(-5)
 
         var entity = {
-            name: this.data.name,
+            name: name,
             nameId:newNameId
         }
         //加入服务器操作
@@ -100,6 +115,7 @@ Page({
                 })
             },
         })
+    }
     },
 
     onNameChange: function (e) {
